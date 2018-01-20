@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import store from './vuex/store.js'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -16,5 +16,6 @@ import Router from './router/index'
 new Vue({
   el: '#app',
   router:Router,
+  store,
   render: h => h(App)
 })
