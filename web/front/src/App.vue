@@ -1,6 +1,5 @@
 <template>
     <div id="app">
-        <h1>delicious</h1>
         <router-view></router-view>
     </div>
 </template>
@@ -16,9 +15,12 @@ export default {
   },
   // 使用baseurl请求方式如下：
   // mounted(){
-  //   baseUrl.get({
-  //     url : "/getschedule" ,
-  //     // params : {这里是参数}
+  //   var res = baseUrl.get({
+  //     url : "/getSlideShow" ,
+  //     params : {这里是参数}
+  //   }).then(function(res){
+  //     // 这里获取返回的结果
+  //     console.log(res)
   //   })
   // }
 }

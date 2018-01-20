@@ -1,0 +1,91 @@
+.y-evaluate{
+    font-size:0.32rem;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    .e-header{
+        height: 1.333333rem;
+        padding:0 0.133333rem;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        font-size:0.426667rem;
+        color:#555555;
+        font-weight:bold;
+    }
+    ul.eva-lists{
+        flex:1;
+        li.eva-list{
+            background-color: #fef;
+            display:flex;
+            justify-content:flex-start;
+            height: 4.0rem;
+            padding:0.533333rem 0 0.533333rem 0.4rem;
+            .eva-left{
+                width: 2.8rem;
+                padding-top:0.266667rem;
+            }
+            .eva-right{
+                flex:1;
+                .starts{
+                    margin-bottom:1rem;
+                    #pingStar{
+                        float:left;
+                        li{
+                            list-style: none;
+                            width:0.533333rem;
+                            height:0.506667rem;
+                            float:left;
+                            background:url('../../assets/img/star_off.png') no-repeat;
+                            
+                        }
+                        li.on{
+                            background:url('../../assets/img/star_on.png') no-repeat;
+                            span{
+                                display:inline;
+                                float:left;
+                                padding-left:0.133333rem;
+                                height:0.28rem;
+                                line-height:0.28rem;
+                            }
+                        }
+                    }
+                                   
+                }
+                .eva-words{
+                    width: 5.333333rem;
+                    height: 1.333333rem;
+
+                }
+
+            }
+        }
+    }
+    .o-pjia{
+        height: 1.2rem;
+        position:relative;
+        background-color: #000;
+        .pjiaBtn{
+            width: 2.08rem;
+            height: 0.906667rem;
+            border:0.013333rem solid #62927C;
+            border-radius:0.133333rem;
+            position:absolute;
+            left: 85%;
+            top: 50%;
+            margin-left:-1.04rem;
+            margin-top:-0.45rem;
+            color:#fff;
+            font-size:0.346667rem;
+            text-align:center;
+            line-height: 0.906667rem;
+            background-color: #31AA29;
+        }
+    }
+}
+
+
+
+
+
+
