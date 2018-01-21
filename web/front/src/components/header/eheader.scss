@@ -1,0 +1,17 @@
+.header{
+        flex:1;
+        background: black;
+        color:#fff;
+        height:1.28rem;
+        font-size:0.56rem;
+        line-height:1.28rem;
+        text-align:center;
+        position:relative;
+        .return{
+            position:absolute;
+            left:0.133rem;
+            top:50%;
+            font-size:0.48rem;
+            transform:translate(0,-50%);
+        }
+     }
