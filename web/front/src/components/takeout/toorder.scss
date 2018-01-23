@@ -13,6 +13,10 @@ body,html{
         height:13.467rem;
         overflow-y: auto;
         flex:10;
+        // margin-bottom:13.333rem;
+        .fill{
+           height:2.306667rem;
+        }
      }   
    .tip{
       padding-top:0.16rem;
@@ -67,6 +71,7 @@ body,html{
        }
    }
    .sub{
+
        background: #0080ED;
        color:#fff;
        font-size:0.427rem;

@@ -5,6 +5,8 @@ import VueRouter from 'vue-router';
 // import loginComponent from '../components/login/login.vue'
 import tocart from '../components/takeout/tocart.vue';
 import toorder from '../components/takeout/toorder.vue';
+import eicart from '../components/eatin/eicart.vue';
+import eiorder from '../components/eatin/eiorder.vue';
 Vue.use(VueRouter);
 var router = new VueRouter({
     mode: 'history',
@@ -22,6 +24,14 @@ var router = new VueRouter({
         {
             path:'/toorder',
             component:toorder
+        },
+        {
+            path:'/eicart',
+            component:eicart
+        },
+        {
+            path:'/eiorder',
+            component:eiorder
         }
     ]
 })
