@@ -1,7 +1,8 @@
 <template>
   <el-container id="p_container">
+   <router-view></router-view>
     <el-header id="p_search_header">
-      <div class="header_icon"><i class="el-icon-back"></i>|&nbsp;搜索</div>
+      <div class="header_icon"><i class="el-icon-back" @click='back' ></i>|&nbsp;搜索</div>
       <div class="p_header_conntent" @click="search">  
         <input id="homesearch" placeholder="请输入内容"  clearable>
         </input>
@@ -15,10 +16,8 @@
      
     </el-main>
   </el-container>     
-                    
-
+           
 </template>
-
 <script>
   import $ from 'jquery'
   import './homesearch.scss'
@@ -27,14 +26,17 @@
   export default {
     name: 'app',
     data() {
-         return {
-           id:0,
-           merchant: [],
-           g2_detail: [],
-         }
+      return {
+        id:0,
+        merchant: [],
+        g2_detail: [],
+      }
        
     }, 
     methods: {
+      back:function(){
+        this.$router.push({name:'home'})
+      },
       search(){
         let that = this;
         let search_input = $('#homesearch')[0];
@@ -65,8 +67,5 @@
         this.$router.push({name:'goodsDetail',query:{id: id}});
       }
     },
-
-
-
   }
-</script>s
+</script> 

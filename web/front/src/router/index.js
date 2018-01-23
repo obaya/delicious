@@ -17,18 +17,30 @@ var router = new VueRouter({
         {
             path:'/',
             name:'home',
-            component:homeComponent
+            component:homeComponent,
+            children:[
+                {
+                    path: 'indexDetail',
+                    name: 'indexDetail',
+                    component: goodsDetail 
+                },]
         },
          {
             path:'/homeSearch',
             name:'homeSearch',
-            component:homeSearch
+            component:homeSearch,
+            children:[
+                {
+                    path: 'goodsDetail',
+                    name: 'goodsDetail',
+                    component: goodsDetail 
+                },]
         },
-        {
-            path:'/goodsDetail',
-            name:'goodsDetail',
-            component:goodsDetail
-        }
+        // {
+        //     path:'/goodsDetail',
+        //     name:'goodsDetail',
+        //     component:goodsDetail
+        // }
 
     ]
 })

@@ -1,14 +1,14 @@
 
   // footer
   #p_footer{
-      // padding-top:1.333333rem;
-      bottom:0;
-      position:fixed;
-      width: 100%;
-      height: 1.306667rem;
-      border-top:1px solid #ccc;
-      background: #EAEAEA;
-
+    // padding-top:1.333333rem;
+    bottom:0;
+    position:fixed;
+    width: 100%;
+    height: 1.306667rem;
+    border-top:1px solid #ccc;
+    background: #EAEAEA;
+    z-index: 0.133333rem;
   }
 
   .el-row {
@@ -28,11 +28,9 @@
      background: #e5e9f2;
    }
     .grid-content i{
-        display:block;
-        font-size:0.586667rem;
-        padding-top: 0.133333rem;
-       
-        
+      display:block;
+      font-size:0.586667rem;
+      padding-top: 0.133333rem;
     }
    .grid-content {
      height: 98px;

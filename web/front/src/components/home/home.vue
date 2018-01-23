@@ -36,8 +36,8 @@
            <el-row >
              <el-col :span="12" v-for="(goodsitem, key) in goods" class="p_c_content">
                 <div class="grid-content bg-purple">
-                  <div class="p_c_content2">
-                    <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" />
+                  <div class="p_c_content2" :id="goodsitem.id">
+                    <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
                     <p><a class="title" v-text ="goodsitem.title"></a><a class="price" v-text="'$'+goodsitem.newPrice"></a></p>
                     <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
                   </div>
@@ -52,8 +52,8 @@
            <el-row >
              <el-col :span="12" v-for="(recommenditem, key) in recommend" class="p_c_content">
                 <div class="grid-content bg-purple">
-                   <div class="p_c_content2">
-                      <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" />
+                   <div class="p_c_content2" :id="recommenditem.id">
+                      <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
                       <p><a class="title" v-text ="recommenditem.title"></a><a class="price" v-text="'$'+recommenditem.newPrice">$353元</a></p>
                       <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
                     </div>
@@ -77,6 +77,7 @@
     name: 'app',
     data () {
       return {
+      
          input10: '',
          dataset: [],
          goods: [],
@@ -87,6 +88,15 @@
       search: function(){
         console.log(666)
         this.$router.push({name:'homeSearch'});
+      },
+      showgoods:function(e){
+
+      
+         if(e.target.tagName == 'IMG'){
+          var id = e.target.parent.id;
+           console.log(id);
+          // this.$router.push({name:'goodsDetail',query:{id: id}});
+        }
       }
 
     },
@@ -132,7 +142,7 @@
                   }
               }
           }
-          // //添加class类名
+          //添加class类名
           function addClass(obj, sClass) { 
               var aClass = obj.className.split(' ');
               if (!obj.className) {
@@ -239,12 +249,24 @@
       }.bind(this)).then(function(_res){
           baseUrl.get({
             url : "/getGoodList" ,
+            params : {impose:100}
           }).then(function(_res){
-            console.log(_res.data);                                                                                                           
-            this.goods = _res.data.slice(1,5);
-            this.recommend = _res.data.slice(2,6);
+              let recommenddata= [];
+              let characteristic = [];
+              let res = _res.data.forEach((item,idx)=>{
+                // console.log(item)/
+                if (item.type===1) {
+                  characteristic.push(item);
+                  this.goods = characteristic;
+                }else{
+                  recommenddata.push(item);
+                  this.recommend = recommenddata
+                }
+                // console.log(characteristic,recommenddata);
+
+            }) 
           }.bind(this))
       }.bind(this));
     }
   }
-</script>s
+</script>

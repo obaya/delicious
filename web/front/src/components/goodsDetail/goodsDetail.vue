@@ -3,7 +3,8 @@
 
     <el-row >
       <div class="p_bg"></div>
-      <el-col v-for="(g2_detailitem, key) in g2_detail"  >
+      <el-col v-for="(g2_detailitem, key) in g2_detail" >
+        <i class="el-icon-error" id="close" @click='back'></i>
         <el-card :body-style="{ padding: '19px' }">
           <img v-bind:src="g2_detailitem.imgUrl" class="image">
           <div >
@@ -29,10 +30,16 @@
   export default {
     name: 'app',
     data() {
-         return {
-           g2_detail: [],
-         }
-       
+      return {
+        g2_detail: [],
+      }  
+    },
+    methods:{
+        back:function(){
+     
+          this.$router.push({name:'homeSearch'})
+
+        }
     }, 
     mounted(){
         console.log(this.$route.query.id);
