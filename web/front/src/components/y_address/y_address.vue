@@ -33,6 +33,7 @@
                 name:'',
                 address:'',
                 // phoneNum:''
+                userid:0
             }
         },
         methods:{
@@ -45,6 +46,9 @@
             editAddress(e){
                 var parmas = $(e.target).parent().prev()
                 console.log(parmas)
+                this.$router.push({name:'editaddress',query:{id:this.userid,phoneNum:'1365012344',name:this.name,address:this.address}})
+                
+
             },
         },
         mounted(){
@@ -56,6 +60,7 @@
                 console.log(res.data[0])
                 self.name = res.data[0].userName;
                 self.address = res.data[0].side;
+                self.userid = res.data[0].id;
             });
         }
     }

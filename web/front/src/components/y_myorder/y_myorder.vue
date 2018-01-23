@@ -91,7 +91,7 @@
                 
             },
             toEvaluate(){
-                this.$router.push('evaluate')
+                this.$router.push({name:'evaluate',query:{phoneNum:'1357867543'}})
 
             }
         },
@@ -100,7 +100,7 @@
             var self = this;
             baseUrl.get({
                 url:"/getUserOrderA",
-                params:{phoneNum:'1365012344'}
+                params:{phoneNum:'1357867543'}
             }).then(function(res){
                 self.orderList=res.data[0].goods_json
                 

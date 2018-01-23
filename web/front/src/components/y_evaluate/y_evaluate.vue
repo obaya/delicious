@@ -20,7 +20,7 @@
                           type="textarea"
                           :rows="3"
                           placeholder="点评一下吧，您的意见很重要哦"
-                          v-model="textarea">
+                          v-model="textarea[idx]">
                         </el-input>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
         data() {
             return {
                 orderList:[],
-                textarea: '',
+                textarea: [],
                 star:'',
                 userId:'',
                 goodsId:'',
@@ -101,7 +101,7 @@
             var self = this;
             baseUrl.get({
                 url:"/getUserOrderA",
-                params:{phoneNum:'1365012344'}
+                params:{phoneNum:this.$route.query.phoneNum}
             }).then(function(res){
                 console.log(res)
                 self.orderList=res.data[0].goods_json
