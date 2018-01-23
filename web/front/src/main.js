@@ -10,6 +10,8 @@ import rem from './getRem/getRem.js'
 import './basescss/base.scss'
 // import 'basescss/base.css'
 
+
+
 rem.rem();
 
 Vue.use(ElementUI)

@@ -5,8 +5,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import baseUrl from './utils/baseurl.js';
 export default {
   name: 'app',
   data () {
@@ -15,6 +13,7 @@ export default {
   },
 
 }
+	
 </script>
 
 <style lang="scss">

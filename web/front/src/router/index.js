@@ -7,10 +7,20 @@ import homeComponent from '../components/home/home.vue';// 首页
 import footerComponent from '../components/footer/footer.vue';// 底部
 import homeSearch from '../components/homeSearch/homeSearch.vue';// 搜索页面
 import goodsDetail from '../components/goodsDetail/goodsDetail.vue';// 详情
+
 import tocart from '../components/takeout/tocart.vue';
 import toorder from '../components/takeout/toorder.vue';
 import eicart from '../components/eatin/eicart.vue';
 import eiorder from '../components/eatin/eiorder.vue';
+
+
+
+import classify from '../components/classify/classify.vue';
+import comment from '../components/comment/comment.vue';
+
+
+
+
 
 import y_mineComponent from '../components/y_mine/y_mine.vue'
 import y_orderComponent from '../components/y_myorder/y_myorder.vue'
@@ -19,12 +29,26 @@ import y_starComponent from '../components/y_star/y_star.vue'
 import y_addressComponent from '../components/y_address/y_address.vue'
 import y_editAddressComponent from '../components/y_edit_address/y_edit_address.vue'
 
+
+
+
+
 Vue.use(VueRouter);
 var router = new VueRouter({
     mode: 'history',
     // 这里配置路由
     routes:[
         {
+
+
+            path:'/classify', component: classify
+            // component:loginComponent
+        },
+        {
+            path:'/comment', component: comment
+            // component:loginComponent
+        },{
+
             path:'/',
 
             name:'home',
@@ -57,6 +81,7 @@ var router = new VueRouter({
             path:'/toorder',
             component:toorder
         },
+
         {
             path:'/eicart',
             component:eicart
@@ -65,7 +90,10 @@ var router = new VueRouter({
             path:'/eiorder',
             component:eiorder
         },
-        {
+        
+
+
+			{
 
             path:'/mine',
             name:'mine',
