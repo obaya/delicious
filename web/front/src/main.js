@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import rem from './getRem/getRem.js'
 import './basescss/base.scss'
 
+
+
 rem.rem();
 
 Vue.use(ElementUI)
