@@ -1,0 +1,123 @@
+.y-order{
+    font-size:0.32rem;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    .o-header{
+        height: 1.333333rem;
+        padding:0 0.266667rem;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        font-size:0.426667rem;
+        color:#fff;
+        font-weight:bold;
+        background-color: #FF7302;
+    }
+    .o-state{
+        height: 2.333333rem;
+        border-bottom:0.013333rem solid #D9D9D9;
+        background-color: #EEEEEE;
+        .jindu{
+            display:flex;
+            justify-content:center;
+            // height: 0.986667rem;
+            margin-top:0.64rem;
+            i{
+                font-size:0.346667rem;
+                color:#ccc;
+            }
+            div{
+                margin:0.133333rem;
+                width: 2.8rem;
+                height: 0.026667rem;
+                border:0.026667rem solid #ccc;
+            }
+            i.active,div.active{
+                color:#CE5248;
+                border-color: #CE5248;
+            }
+        }
+        .shuoming{
+            display:flex;
+            justify-content:space-around;
+            font-size:0.293333rem;
+            margin-top:0.293333rem;
+            color:#747474;
+
+        }
+
+    }
+    .o-infor{
+        height: 2.16rem;
+        text-align:center;
+        font-size:0.293333rem;
+        color:#8B8B8B;
+        padding-top:0.4rem;
+        border-bottom:0.013333rem solid  #ddd;
+        div{
+            margin-bottom:0.253333rem;
+        }
+    }
+    .o-list{
+        flex:1;
+        background-color: #EEEEEE;
+        display:flex;
+        flex-direction:column;
+        .red{
+            color:#D25448;
+        }
+        .food-list{
+            padding:0 0.4rem;
+            background-color: #fff;
+            font-size:0.32rem;
+            li.one-list{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                height: 1.093333rem;
+                border-bottom:0.013333rem solid  #ddd;
+                
+                .food-name{
+                    font-size:0.4rem;
+                }
+
+            }
+        }
+        .ototal{
+            padding-left:0.4rem;
+            background-color: #fff;
+            font-size:0.32rem;
+            height: 1.093333rem;
+            line-height:1.093333rem;
+            span:first-child{
+                margin-right:0.133333rem;
+            }
+        }
+        .opaytype{
+            height: 1.44rem;
+            background-color: #FFF;
+            padding:0.373333rem 0 0 0.4rem;
+        }
+
+    }
+    .o-pjia{
+        height: 1.2rem;
+        position:relative;
+        .pjiaBtn{
+            width: 2.08rem;
+            height: 0.906667rem;
+            border:0.013333rem solid #62927C;
+            border-radius:0.133333rem;
+            position:absolute;
+            left: 50%;
+            top: 50%;
+            margin-left:-1.04rem;
+            margin-top:-0.45rem;
+            color:#62927C;
+            font-size:0.346667rem;
+            text-align:center;
+            line-height: 0.906667rem;
+        }
+    }
+}

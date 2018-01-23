@@ -1,0 +1,64 @@
+.y-mine{
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    .m-top{
+        display:flex;
+        justify-content:flex-start;
+        padding:0.586667rem 0.533333rem;
+        height:2.8rem;
+        background-color: #FF4E00;
+        .m-img{
+            width: 120px;
+            height: 120px;
+            margin-right:0.4rem;
+            border-radius:50%;
+            background: url('../../assets/img/mpic1.png') no-repeat;
+        }
+        .m-information{
+            div:first-child{
+                margin-bottom:0.133333rem;
+            }
+            font-size:0.38rem;
+            margin-top:0.316667rem;
+            color:white;
+        }
+    }
+    .m-center{
+        flex:1;
+        background-color: #F2F2F2;
+        display:flex;
+        flex-direction:column;
+        ul{
+            margin:0.4rem 0;
+            padding:0 0.4rem;
+            background-color: #FFF;
+            li{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                height: 1.28rem;
+                border-bottom:0.013333rem solid #666;
+                span{
+                    display:inline-block;
+                    width: 8.16rem;
+                    padding-left:0.133333rem;
+                    color:#636363;
+                    font-size:0.373333rem;
+                }
+                i{
+                    color:#C7C7C7;
+                    font-size:0.4rem;
+                }
+            }
+            .lastli{
+                border-bottom:none;
+            }
+        }
+
+    }
+    .m-bottom{
+        height: 1.306667rem;
+        background-color: #f00;
+    }
+}
