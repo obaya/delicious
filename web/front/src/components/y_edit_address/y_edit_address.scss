@@ -1,0 +1,49 @@
+.y-edit-address{
+    font-size:0.32rem;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    .edit-header{
+        height: 1.333333rem;
+        padding:0 0.69rem 0 0.266667rem;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        font-size:0.426667rem;
+        color:#fff;
+        font-weight:bold;
+        background-color: #FF7302;
+    }
+    .edit-info{
+        flex:1;
+        background-color: #F2F2F2;
+        li{
+            height: 1.5rem;
+            display:flex;
+            align-items:center;
+            background-color: #fff;
+            font-size:0.693333rem;
+            border-top:0.013333rem solid #E0E0E0;
+            border-bottom:0.013333rem solid #E0E0E0;
+            padding:0 0.4rem;
+            input{
+                display:inline-block;
+                height: 100%;
+                width: 90%;
+            }
+            i{
+                color:#ccc;
+            }
+        }
+        .save-btn{
+            height: 1.333333rem;
+            margin:0.4rem 10%;
+        }
+    }
+}
+
+
+
+
+
+

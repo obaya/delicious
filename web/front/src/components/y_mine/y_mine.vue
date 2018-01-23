@@ -3,18 +3,18 @@
         <div class="m-top">
             <div class="m-img"></div>
             <div class="m-information">
-                <div><span>卡号：</span><span>12345</span></div>
-                <div><span>手机号：</span><span>13678987898</span></div>
+                <div><span>卡号：</span><span>{{cardNum}}</span></div>
+                <div><span>手机号：</span><span>{{13498987898}}</span></div>
             </div>
         </div>
         <div class="m-center">
             <ul>
-                <li>
+                <li @click="toMyOrder">
                     <i class="el-icon-document"></i>
                     <span>我的订单</span>
                     <i class="el-icon-arrow-right"></i>
                 </li>
-                <li class="lastli">
+                <li class="lastli" @click="toAddress">
                     <i class="el-icon-location-outline"></i>
                     <span>收货地址</span>
                     <i class="el-icon-arrow-right"></i>
@@ -26,7 +26,7 @@
                     <span>优惠券</span>
                     <i class="el-icon-arrow-right"></i>
                 </li>
-                <li class="lastli">
+                <li class="lastli" @click="contactUs">
                     <i class="el-icon-phone-outline"></i>
                     <span>联系我们</span>
                     <i class="el-icon-arrow-right"></i>
@@ -39,7 +39,48 @@
 <script type="text/javascript">
     import './y_mine.scss';
     export default{
+        data(){
+            return {
+                cardNum:'98767',
+                phoneNum:'13498987898'
+            }
+        },
+        methods:{
+            toMyOrder(){
+                this.$router.push('yorder')
+            },
+            toAddress(){
+                this.$router.push('address')
+            },
 
+            // element弹窗
+            contactUs() {
+                const h = this.$createElement;
+                this.$msgbox({
+                    message: h('p', { style: 'height:1.066667rem;padding-top:0.266667rem' }, [
+                        h('span', { style: 'font-size:0.4rem;margin-top:0.133333rem' }, '联系我们： '),
+                        h('i', { style: 'color: teal;font-size:0.4rem' }, '021-56788888')
+                    ]),
+                    showCancelButton: true,
+                    confirmButtonText: '呼叫', 
+                    cancelButtonText: '取消',
+                    beforeClose: (action, instance, done) => {
+                        if (action === 'confirm') {
+                            instance.confirmButtonLoading = true;
+                            instance.confirmButtonText = '呼叫中...';
+                            setTimeout(() => {
+                                done();
+                            setTimeout(() => {
+                                instance.confirmButtonLoading = false;
+                            }, 300);
+                            }, 3000);
+                        } else {
+                            done();
+                        }
+                    }
+                })
+            },
+        }
     }
 
 </script>

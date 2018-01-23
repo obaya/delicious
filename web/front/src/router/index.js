@@ -6,6 +6,9 @@ import VueRouter from 'vue-router';
 import y_mineComponent from '../components/y_mine/y_mine.vue'
 import y_orderComponent from '../components/y_myorder/y_myorder.vue'
 import y_evaluateComponent from '../components/y_evaluate/y_evaluate.vue'
+import y_starComponent from '../components/y_star/y_star.vue'
+import y_addressComponent from '../components/y_address/y_address.vue'
+import y_editAddressComponent from '../components/y_edit_address/y_edit_address.vue'
 
 Vue.use(VueRouter);
 var router = new VueRouter({
@@ -23,7 +26,22 @@ var router = new VueRouter({
         },{
             path:'/evaluate',
             name:'evaluate',
-            component:y_evaluateComponent
+            component:y_evaluateComponent,
+            children:[
+                {
+                    path:'/star',
+                    name:'star',
+                    component:y_starComponent
+                },
+            ]
+        },{
+            path:'/address',
+            name:'address',
+            component:y_addressComponent
+        },{
+            path:'/editaddress',
+            name:'editaddress',
+            component:y_editAddressComponent
         },
     ]
 })

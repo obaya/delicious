@@ -15,7 +15,7 @@ export default {
   },
   // 使用baseurl请求方式如下：
   // mounted(){
-  //   var res = baseUrl.get({
+  //    baseUrl.get({
   //     url : "/getSlideShow" ,
   //     params : {这里是参数}
   //   }).then(function(res){
