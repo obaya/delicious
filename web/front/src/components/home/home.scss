@@ -1,0 +1,271 @@
+
+ #p_container{
+
+      a{
+        color:#333;
+      }
+      height:100%;
+      flex-direction: column;
+      display:flex;
+      // header
+      .el-header{
+
+        position:absolute;
+        top:0;
+        left:0.03rem;   
+        z-index:100;
+        width: 7.466667rem;
+      }
+      .el-input{
+        display:inline;
+        float: left;
+        width:6.0rem;
+        margin-top: 0.693333rem;
+
+      }
+      .p_header_search_botton{
+        float: right;
+        height: 53px;
+        background:#000;
+        opacity:0.5;
+        color:#fff;
+      }
+      #p_header_search{
+          border:0.013333rem solid #fff;
+          width: 6.866667rem;
+          float: left;
+          color:#fff;
+          height:0.773333rem;
+          background: #000;
+          opacity:0.4044;
+          display:flex;
+          justify-content: flex-end;
+       
+          border-radius:0.666667rem;
+          font-size:0.266667rem;
+          padding-left: 0.4rem;
+      }
+  }
+  #homeinput{
+      margin-left: 0.4rem;
+      width:90%;
+      -webkit-appearance: none;
+      background-color: #fff;
+      border-radius: 4px;
+      border: 1px solid #dcdfe6;
+      box-sizing: border-box;
+      color: #606266;
+      display: inline-block;
+      font-size: inherit;
+      height: 40px;
+      line-height: 1;
+      outline: 0;
+      padding: 0 15px;
+      -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+      transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+      font-size:0.213333rem;
+
+  }
+
+ // mian
+
+ #p_main{
+
+   flex:1;
+   overflow-x: hidden;
+   /*轮播图*/
+   #tabPic{
+    height:5.333333rem;
+    overflow:hidden;
+    position:relative;
+   }
+   #picList{
+    overflow:hidden;
+    width:500%;
+    li{
+      float:left;
+      width:20%;
+     }
+    img{
+     width: 100%;
+     height: 5.306667rem;
+
+    }
+   }
+
+   /*小点点*/
+   .picMask{
+    height:1.36rem;
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    z-index: 1000;
+    background:-webkit-linear-gradient(bottom,rgba(0,0,0,0.9) 0,rgba(0,0,0,0.8) 10%,rgba(0,0,0,0));
+    background:linear-gradient(bottom,rgba(0,0,0,0.9) 0,rgba(0,0,0,0.8) 20%,rgba(0,0,0,0));
+    p{
+       font-size:29px;
+       line-height:1.6rem;
+       text-indent:0.346667rem;
+       color:#fff;
+      }
+      nav{
+        height:0.133333rem;
+        right:0.346667rem;
+        top:0.746667rem;
+        position:absolute;
+       }
+       a{
+         float:left;
+         width:0.133333rem;
+         height:0.133333rem;
+         border-radius:0.066667rem;
+         background:#fff;
+         opacity:0.5;
+         margin-left:0.2rem;
+        }
+   }
+ 
+   .picMask nav a.active{
+    opacity:1;
+   }
+   /*特色菜品*/
+   .restaurant{
+    position:absolute;
+    top:0.4rem;
+    right:0.4rem;
+    width:1.013333rem;
+    height:1.013333rem;
+    padding:0.146667rem 0.146667rem;
+    font-size:0.293333rem;
+    line-height:0.373333rem;
+    letter-spacing:0.026667rem;
+    text-align:center;
+    background:rgba(230,0,18,0.6);
+    color:#fff;
+    text-decoration:none;
+    border-radius:0.52rem;
+    font-size:21px;
+    animation:restaurant 2s alternate infinite;
+    color:#fff;
+    z-index: 1000;
+   }
+   /*圆球阴影*/
+   @keyframes restaurant
+   {
+       0% { box-shadow: 0px 0px 0px 0px rgba(0,0,0,0),0px 0px 0px 1px rgba(230,0,18,0); }
+       10%{ box-shadow: 0px 0px 0px 1px rgba(0,0,0,0), 0px 0px 0px 2px rgba(230,0,18,0.1);}
+       20%{ box-shadow: 0px 0px 0px 2px rgba(0,0,0,0), 0px 0px 0px 4px rgba(230,0,18,0.2);}
+       40%{ box-shadow: 0px 0px 0px 0px rgba(0,0,0,0), 0px 0px 0px 1px rgba(230,0,18,0.1),0px 0px 0px 4px rgba(0,0,0,0), 0px 0px 0px 6px rgba(230,0,18,0.3);}
+       50%{ box-shadow: 0px 0px 0px 1px rgba(0,0,0,0), 0px 0px 0px 3px rgba(230,0,18,0.2),0px 0px 0px 5px rgba(0,0,0,0), 0px 0px 0px 8px rgba(230,0,18,0.4);}
+       60%{ box-shadow: 0px 0px 0px 2px rgba(0,0,0,0), 0px 0px 0px 5px rgba(230,0,18,0.3),0px 0px 0px 6px rgba(0,0,0,0), 0px 0px 0px 10px rgba(230,0,18,0.5);}
+       70%{ box-shadow: 0px 0px 0px 3px rgba(0,0,0,0), 0px 0px 0px 6px rgba(230,0,18,0.4),0px 0px 0px 7px rgba(0,0,0,0), 0px 0px 0px 11px rgba(230,0,18,0.4);}
+       80%{ box-shadow: 0px 0px 0px 4px rgba(0,0,0,0), 0px 0px 0px 7px rgba(230,0,18,0.3),0px 0px 0px 8px rgba(0,0,0,0), 0px 0px 0px 12px rgba(230,0,18,0.3);}
+       90%{ box-shadow: 0px 0px 0px 5px rgba(0,0,0,0), 0px 0px 0px 6px rgba(230,0,18,0.2),0px 0px 0px 9px rgba(0,0,0,0), 0px 0px 0px 13px rgba(230,0,18,0.2);}
+       100%{ box-shadow: 0px 0px 0px 7px rgba(0,0,0,0), 0px 0px 0px 7px rgba(230,0,18,0.1),0px 0px 0px 10px rgba(0,0,0,0), 0px 0px 0px 14px rgba(230,0,18,0);}
+   }
+
+   //商家推荐
+  .p_characteristic{
+    padding-bottom: 0.266667rem;
+    height: 10.333333rem;
+    background:#f0f0f0;
+    padding-top: 0.346667rem; 
+    border-bottom:0.013333rem solid #ccc;
+    .p_c_title{
+      text-align:center;
+      img{
+        width: 9.333333rem;
+        height:1.0rem;
+        margin:0 auto;
+
+      }
+      .mtitle{
+          background:#a87f69;
+          width: 2.986667rem;
+          height:0.533333rem;
+          line-height:0.533333rem;
+          font-size:0.293333rem;
+          margin:0 auto;
+          padding:-0.066667rem;
+          color:#fff;
+        }
+    }
+  }
+ 
+  //body
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .p_c_content2{
+    border:0.026667rem solid #ccc;
+    background:#fff;
+    height:3.9rem;
+   }
+  .grid-content {
+    margin-top: 0.266667rem;
+    padding-top: 0.266667rem;
+    padding:0.133333rem;
+    border-radius: 4px;
+    height:4.1rem;
+
+    img{
+      height:2.36rem;
+    }
+    .title{
+      float: left;
+    }
+    .price{
+      float: right;
+    }
+    p{
+      height:0.533333rem;
+      line-height:0.533333rem;
+      padding:0.133333rem;
+
+      i{
+        height:0.2rem;
+        width:0.2rem;
+        margin-right: 0.4rem;
+      }
+    }
+    .sale{
+      float: left;
+      text-align:left;
+    }
+    .add{
+       float: right;
+       text-align: right;
+    }
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+  .p_c_content{
+    height: 4.1rem;
+  }
+  .el-main{
+    padding:0.133333rem;
+  }
+  .p_recommend{
+    margin-bottom:1.0rem;
+  }
+
+
+
+
+}

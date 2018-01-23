@@ -9,10 +9,12 @@ var fliterUrl = function (url) {
     return baseUrl + url;
 }
 export default {
+    
     get: (opt) => {
         return new Promise((resolve, reject) => {
             axios.get(fliterUrl(opt.url), { params: opt.params }).then((response) => {
                 resolve(response);
+
             }).catch((error) => {
                 reject(error);
             })
@@ -29,8 +31,7 @@ export default {
                 }
             }).then((response) => {
                 reslove(response);
-            })
-                .catch((error) => {
+            }).catch((error) => {
                     reject(error);
                 }
                 );
