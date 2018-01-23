@@ -1,0 +1,62 @@
+body{
+
+.p_detail{
+
+  position:relative;
+  }
+  .bottom {
+    margin-top: 0.173333rem;
+    line-height: 0.16rem;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  } 
+  .el-card{
+    width: 80%;
+    margin:0 auto;
+    font-size:0.186667rem;
+    position:relative;
+    top:4.666667rem;
+    z-index:1000;
+
+  }
+  .el-row:last-child {
+    margin-bottom: 0;
+    height: 100%;
+  }
+  .p_bg{
+    background: #000;
+    opacity:0.5 ;
+    height:100%; 
+    width:100%;
+    z-index:999;
+    position:absolute;
+    height:300%;
+  }
+  .el-icon-error{
+    position:absolute;
+    position:absolute;
+    right:1.066667rem;
+    background:#fff;
+    z-index:1000;
+    top:2.666667rem;
+  }
+
+}
