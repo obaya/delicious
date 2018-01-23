@@ -26,8 +26,8 @@
         </div>
         <div class="buy">
             <div class="sum">总计￥<span>{{total}}</span></div>
-            <div  class="buybtn" @click="suborder">提交订单</div>
-            <!-- <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link> -->
+            <!-- <div  class="buybtn" @click="suborder">提交订单</div> -->
+            <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link>
         </div>
         <efooter></efooter>
     </div>

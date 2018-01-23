@@ -6,7 +6,7 @@
         <ul class="information">
             <li><input type="text" placeholder="配送地址"/></li>
             <li><input type="text" placeholder="联系人"/></li>
-            <li><input type="text" placeholder="手机号码"/></li>
+            <li><input type="text" placeholder="手机号码" v-model="phoneNumber"/></li>
             <li><input type="text" placeholder="给店铺留言"/></li>
             <li><span class="weixin">支付方式</span></li>
             <li><span class="weixin">微信支付</span></li>
@@ -14,7 +14,7 @@
             <!-- <li><span class="weixin">现金支付</span></li> -->
         </ul>
         <h1 class="oramount">订单金额:<span>￥{{this.$route.query.money}}</span></h1>
-        <input type="button" value="提交订单" class="sub"/>
+        <input type="button" value="提交订单" class="sub" @click="suborder"/>
         <div class="fill"></div>
         </div>
         <efooter></efooter>
@@ -33,10 +33,13 @@
         },
         data(){
             return {
-                 
+                 phoneNumber:'',
             }
         },
         methods:{
+            suborder(){
+                localStorage.setItem("phoneNumber",this.phoneNumber);
+            }
            
         },
         mounted:function(){

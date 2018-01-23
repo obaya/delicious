@@ -1,7 +1,6 @@
 
   // footer
   #p_footer{
-      // padding-top:1.333333rem;
       z-index:10;
       bottom:0;
       position:fixed;
@@ -10,6 +9,13 @@
       border-top:1px solid #ccc;
       background: #EAEAEA;
 
+    bottom:0;
+    position:fixed;
+    width: 100%;
+    height: 1.306667rem;
+    border-top:1px solid #ccc;
+    background: #EAEAEA;
+    z-index: 0.133333rem;
   }
 
   .el-row {
@@ -34,6 +40,10 @@
         padding-top: 0.133333rem;
        
         
+      display:block;
+      font-size:0.586667rem;
+      padding-top: 0.133333rem;
+
     }
    .grid-content {
      height: 98px;

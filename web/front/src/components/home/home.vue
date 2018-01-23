@@ -1,0 +1,272 @@
+<template>
+  <el-container id="p_container">
+   
+    <el-header>
+      <div class="p_header_conntent" @click="search">  
+        <el-input id="homeinput" placeholder="请输入内容" v-model="input10" clearable>
+        </el-input>
+
+       <el-button type="primary" icon="el-icon-search" ></el-button>
+     </div>
+    </el-header>
+
+    <main id="p_main">
+       <!-- Carousel -->
+       <section>
+          <!-- image -->
+          <section id="tabPic">
+              <ul id="picList" style="transition: 0.5s; transform: translateX(-2560px);">
+                  <li v-for="(item, key) in dataset"><img v-bind:src="item.imgUrl[0]" width="100%" alt="" /></li>
+              </ul>
+              <!-- dot -->
+              <section class="picMask">
+                  <p>太晚卤菜特价，美味ni知道！</p>
+                  <nav>
+                    <a></a><a></a><a></a><a class="active"></a>
+                  </nav>
+              </section>
+              <a href="javascript:;" class="restaurant">蓝湾小吃</a>
+          </section>
+       </section>
+
+       <!-- body -->
+       <!-- 特价 -->
+       <section class="p_characteristic ">
+         <h1 class="p_c_title"><img src="../../assets/characteristic.png" alt="" /><p class="mtitle">超值实惠，先点两份</p></h1>
+           <el-row >
+             <el-col :span="12" v-for="(goodsitem, key) in goods" class="p_c_content">
+                <div class="grid-content bg-purple">
+                  <div class="p_c_content2" :id="goodsitem.id">
+                    <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
+                    <p><a class="title" v-text ="goodsitem.title"></a><a class="price" v-text="'$'+goodsitem.newPrice"></a></p>
+                    <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
+                  </div>
+                </div>
+              </el-col>
+           </el-row>
+        
+       </section>
+       <!-- 商家推荐 -->
+       <section class="p_characteristic p_recommend">
+         <h1 class="p_c_title"><img src="../../assets/recommend.png" alt="" /><p class="mtitle">超值实惠，先点两份</p></h1>
+           <el-row >
+             <el-col :span="12" v-for="(recommenditem, key) in recommend" class="p_c_content">
+                <div class="grid-content bg-purple">
+                   <div class="p_c_content2" :id="recommenditem.id">
+                      <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
+                      <p><a class="title" v-text ="recommenditem.title"></a><a class="price" v-text="'$'+recommenditem.newPrice">$353元</a></p>
+                      <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
+                    </div>
+                </div>
+              </el-col>
+           </el-row>
+       </section>
+    </main>
+
+    <footermodel></footermodel>
+
+  </el-container>
+
+</template>
+
+<script>
+  import './home.scss'
+  import baseUrl from '../../utils/baseurl.js';
+  import footermodel from '../../components/footer/footer.vue';
+  export default {
+    name: 'app',
+    data () {
+      return {
+      
+         input10: '',
+         dataset: [],
+         goods: [],
+         recommend: [],
+      }
+    }, 
+    methods: {
+      search: function(){
+        console.log(666)
+        this.$router.push({name:'homeSearch'});
+      },
+      showgoods:function(e){
+
+      
+         if(e.target.tagName == 'IMG'){
+          var id = e.target.parent.id;
+           console.log(id);
+          // this.$router.push({name:'goodsDetail',query:{id: id}});
+        }
+      }
+
+    },
+    components: {
+      footermodel
+    },
+    mounted(){
+      //轮播图
+      baseUrl.get({
+        url : "/getSlideShow" 
+      }).then(function(res){
+    
+          this.dataset = res.data;
+          function view() {
+              return {
+                  w: document.documentElement.clientWidth,
+                  h: document.documentElement.clientHeight
+              };
+          }
+          //绑定事件
+          function bind(obj, ev, fn) { 
+              if (obj.addEventListener) {
+                  obj.addEventListener(ev, fn, false);
+              } else {
+                  obj.attachEvent('on' + ev, function() {
+                      fn.call(obj);
+                  });
+              }
+          }
+          //获取id
+          function id(obj) {
+              return document.getElementById(obj);
+          }
+          //删除class类名
+          function removeClass(obj, sClass) { 
+              var aClass = obj.className.split(' ');
+              if (!obj.className) return;
+              for (var i = 0; i < aClass.length; i++) {
+                  if (aClass[i] === sClass) {
+                      aClass.splice(i, 1);
+                      obj.className = aClass.join(' ');
+                      break;
+                  }
+              }
+          }
+          //添加class类名
+          function addClass(obj, sClass) { 
+              var aClass = obj.className.split(' ');
+              if (!obj.className) {
+                  obj.className = sClass;
+                  return;
+              }
+              for (var i = 0; i < aClass.length; i++) {
+                  if (aClass[i] === sClass) return;
+              }
+              obj.className += ' ' + sClass;
+          }
+          //属性
+          function Carousel(name){  
+            this.index = 0;
+            this.iX = 0;
+            this.iW = view().w;
+            this.oTimer = 0;
+            this.iStartTouchX = 0;
+            this.iStartX = 0;
+
+            // 绑定事件
+            this.bindEvent();
+          }  
+          //方法
+          Carousel.prototype={  
+
+            constructor:Carousel,
+
+            //绑定事件 
+            bindEvent(){
+              this.getDom();
+              this.playAuto();
+              let that = this;
+              //点击(手按下)
+              bind(this.oTab,"touchstart",function(e){
+                clearInterval(that.oTimer);
+                that.oList.style.transition="none";  
+                // changedTouches: 涉及当前(引发)事件的触摸点的列表（触摸改变）
+                e = e.changedTouches[0];
+                that.iStartTouchX = e.pageX;
+                that.iStartX = that.iX;
+              });
+              // 移动
+            
+              bind(this.oTab,"touchmove",function(e){ 
+                e = e.changedTouches[0];
+                let iDis = e.pageX - that.iStartTouchX;
+                //图片的移动距离差值
+                that.iX = that.iStartX + iDis;
+                that.oList.style.transform = "translateX(" + that.iX + "px)";
+              });
+              // 结束（手抬起）
+              bind(this.oTab,"touchend",function(){
+                that.index = that.iX/that.iW;
+                that.index = -Math.round(that.index);
+                // 判断运动边界
+                if(that.index < 0){
+                  that.index = 0;
+                }
+                if(that.index > that.aNav.length - 1){
+                  that.index = that.aNav.length - 1;
+                }
+                // 切换
+                that.slideTab();
+                // 自动播放
+                that.playAuto();
+              });
+            },
+
+            //获取节点
+            getDom(){
+              // 轮播
+              this.oTab = id("tabPic");
+              this.oList = id("picList");
+              this.aNav = this.oTab.getElementsByTagName("nav")[0].children;
+            }, 
+
+            //自动播放
+            playAuto(){
+              let that = this;
+              this.oTimer = setInterval(() => {
+                that.index++; 
+                that.index = that.index%that.aNav.length;
+                
+                that.slideTab();
+              },2000);
+            },
+
+            //切换
+            slideTab(){
+              // 移动的距离
+              this.iX = -this.index*this.iW;
+              //this.oList ：ul外层div的宽度
+              this.oList.style.transition="0.5s";
+              this.oList.style.transform="translateX(" + this.iX + "px)";
+              for(let i = 0;i < this.aNav.length;i++){
+                removeClass(this.aNav[i],"active");
+              }
+              addClass(this.aNav[this.index],"active");
+            }
+          }
+          //实例化
+          new Carousel();  
+      }.bind(this)).then(function(_res){
+          baseUrl.get({
+            url : "/getGoodList" ,
+            params : {impose:100}
+          }).then(function(_res){
+              let recommenddata= [];
+              let characteristic = [];
+              let res = _res.data.forEach((item,idx)=>{
+                // console.log(item)/
+                if (item.type===1) {
+                  characteristic.push(item);
+                  this.goods = characteristic;
+                }else{
+                  recommenddata.push(item);
+                  this.recommend = recommenddata
+                }
+                // console.log(characteristic,recommenddata);
+
+            }) 
+          }.bind(this))
+      }.bind(this));
+    }
+  }
+</script>

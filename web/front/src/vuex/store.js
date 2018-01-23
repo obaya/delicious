@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // 引入需要用到vuex的文件
-// import login from '../components/login.js'
+import y_myorder from '../components/y_myorder/y_myorder.js'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     modules: {
-        // login,
+        y_myorder,
     }
 })
+export default store
