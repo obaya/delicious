@@ -13,6 +13,7 @@ export default {
     get: (opt) => {
         return new Promise((resolve, reject) => {
             axios.get(fliterUrl(opt.url), { params: opt.params }).then((response) => {
+                // console.log(response)
                 resolve(response);
 
             }).catch((error) => {
