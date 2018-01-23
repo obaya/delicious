@@ -60,8 +60,9 @@
       },
     
       search_goodsdetail: function(){
-        console.log(666)
-        this.$router.push({name:'goodsDetail'});
+        console.log(666);
+        var id = this.id;
+        this.$router.push({name:'goodsDetail',query:{id: id}});
       }
     },
 
