@@ -1,7 +1,7 @@
 <template>
 
 	<div id="app">
-		<img src="../../assets/head.png"/>
+		<img src="../../assets/head.png" width="100%"/>
 		<ul id="canteen">
 			<li class="mess">食堂</li>
 			<li>评论</li>
@@ -19,85 +19,31 @@
 					<div class="style1">{{this.showList}}</div>
 					<div class="style2">
 						<div class="cDatails">
-							<ul v-if = "showList == '单人特色套餐'">
-								<li v-for="(obj,index) in Package" :class="obj.title" >
-									<div class="tuPian"><img :src="obj.imgUrl[0]" class="tuP"/></div>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>
 							<!---->
-							<ul v-if = "showList == '特色粥品'">
-								<li v-for="(obj,index) in zhou" :class="obj.title" >
-									<img :src="obj.imgUrl[0]" class="tuP"/>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>
-							<ul v-if = "showList == '精选热菜'">
-								<li v-for="(obj,index) in greens" :class="obj.title" >
-									<img :src="obj.imgUrl[1]" class="tuP"/>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>
-							<ul v-if = "showList == '爽口凉菜'">
-								<li v-for="(obj,index) in cold" :class="obj.title" >
-									<img :src="obj.imgUrl[1]" class="tuP"/>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>						
-							<ul v-if = "showList == '小吃主食'">
-								<li v-for="(obj,index) in snack" :class="obj.title" >
-									<img :src="obj.imgUrl[1]" class="tuP"/>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>	
-							<ul v-if = "showList == '果拼果汁'">
-								<li v-for="(obj,index) in juice" :class="obj.title" >
-									<img :src="obj.imgUrl[1]" class="tuP"/>
-									<h3 class="h3">{{obj.title}}</h3>
-									<div class="sell"><div class="evaluate">月销售<span>{{obj.sales}}</span>份</div><div class="evaluate">好评率100%</div></div>
-									<p id="price"><span>￥<span>{{obj.newPrice}}</span></span><del>￥{{obj.oldPrice}}</del></p>
-									<div class="addRed">
-										<div class="reduce"><img src="../../assets/reduce.png"/></div>
-										<div id="qty">1</div>
-										<div class="add"><img src="../../assets/add.png"/></div>
-									</div>
-								</li>
-							</ul>
+							<Package :pack = 'Packages' :status = 'showList'></Package>
+							<!---->
+							<zhou :zhou="zhous" :zhouStatus = 'showList'></zhou>
+							
+							<!---->
+							<greens :greens="greens" :status = 'showList'></greens>
+							
+							<!---->
+							<cold :cold="cold" :status="showList"></cold>
+							
+							<!---->
+							<snack :snack="snack" :status="showList"></snack>
+							
+							<!---->
+							<juice :juice="juice" :status="showList"></juice>
+							
+							<!---->
+							<noodle :Noodle="noodle" :status="showList"></noodle>
+							
+							<!---->
+							<hot :Hot="hot" :status="showList"></hot>
+							
+							<!---->
+					
 						</div>
 					</div>
 				</div>
@@ -105,13 +51,34 @@
 			</div>
 		</div>
 		<div id="foot">
-			<div class="big"><div class="min"><img src="../../assets/car.png" alt="" id="car"/></div></div>
+			<div class="big" @click='changeCartKey()'><div class="min"><img src="../../assets/car.png" alt="" id="car"/></div></div>
 			<div class="footQty">共<span class="footQ">1</span>份</div>
 			<div class="total">价格：￥<span>10</span></div>
 			<div class="OK">选好了</div>
-			
 		</div>
-		
+		<div class="car" v-if='cartKey'>
+			<div class="carlist">
+				<div class="carlistT">
+					<span class="carlistT1">购物车</span>
+					<span class="carlistT2">清空</span>
+					
+				</div>
+				<div class="carlistB">
+					<ul>
+						<li>
+							<span class="list">冰糖香蕉水</span>
+							<span class="cPrice">￥2</span>
+							<div class="count">
+								<div class="reduce2"><img src="../../assets/reduce.png"/></div>
+								<div id="qty2">1</div>
+								<div class="add2"><img src="../../assets/add.png" alt="" /></div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
 		
 		
 	</div>
@@ -123,38 +90,63 @@
 	import baseUrl from '../../utils/baseurl.js';
 	import classifyScss from './classify.vue';
 	import basescss from '../../basescss/base.scss';
+	import Package from './Package.vue';
+	import zhou from './zhou.vue';
+	import hot from './hot.vue'
+	import noodle from './noodle.vue';
+	import juice from './juice.vue'
+	import snack from './snack.vue'
+	import cold from './cold.vue'
+	import greens from './greens.vue';
+	import jquery from './jquery-3.2.1.js'
+	
+//	jquery(function(){
+//		$('.min').on('click',function(){
+//			
+//		})
+//	});
+	
+	
 	
 	export default{
 		data(){
 			return {
 				dataset:[],
-				Package:[],
-				zhou:[],
+				Packages:[],
+				zhous:[],
 				greens:[],
 				cold:[],
 				snack:[],
 				juice:[],
-				qty:[],
+				hot:[],
+				noodle:[],
 				classifyList:["热销榜","单人特色套餐","特色粥品","精选热菜","爽口凉菜","小吃主食","果拼果汁","面类","甜品"],
-				showList:"单人特色套餐"
+				showList:"热销榜",
+				cartKey:false
 			}
 		},
+		components:{Package,zhou,hot,noodle,juice,snack,cold,greens},
 		methods:{
 			refresh: function(_item){
 				console.log(_item);
 				this.showList = _item;
+				
+			},
+			changeCartKey(){
+				this.cartKey = !this.cartKey; 
 			}
 		},
 		beforeMount(){
+			
 			axios.get('http://10.3.136.27:88/getClassifyGoods').then(response => {
 				this.dataset = response.data;
+				console.log(this.dataset.discount);
 				this.dataset.forEach((item)=>{
-//					console.log(item.classify);
 					//单人精彩套餐、小吃主食、特色粥品、爽口凉菜、面类、精选热菜、果拼果汁、特色粥品
 					if(item.classify == '单人精彩套餐'){
-						this.Package.push(item);
+						this.Packages.push(item);
 					}else if(item.classify == '特色粥品'){
-						this.zhou.push(item);
+						this.zhous.push(item);
 					}else if(item.classify == '精选热菜'){
 						this.greens.push(item);
 					}else if(item.classify == '爽口凉菜'){
@@ -163,16 +155,16 @@
 						this.snack.push(item)
 					}else if(item.classify == '果拼果汁'){
 						this.juice.push(item)
-					}console.log(item.sales)
-//					else if(item.sales > 20){
-//						this.qty.push(item);
-//						
-//					}
-						
-					
-					
+					}else if(item.classify == '面类'){
+						this.noodle.push(item)
+					}
 				})
-				console.log(this.dataset.sales);
+				console.log(this.Packages);
+				for(var item  in this.dataset){
+					if(this.dataset[item].sales>20){
+						this.hot.push(this.dataset[item]);
+					}
+				}
 			}).catch(function(error){
 					console.log(error);
 			})
@@ -182,40 +174,58 @@
 
 <style>
 	
-	body,html{height:100px;}
+	body,html{height:100%;}
 	*{margin:0;padding:0;}
-	#canteen{height:82px;display:flex;border-bottom:1px solid #ccc;}
-	#canteen li{flex:1;font-size:30px;line-height:82px;text-align: center;}
+	#canteen{width:100%;height:1.09rem;display:flex;border-bottom:0.01rem solid #ccc;}
+	#canteen li{flex:1;font-size:0.4rem;line-height:1.09rem;text-align: center;}
 	#canteen .mess{color:red;}
-	#mian{height:890px;width:100%;display: flex;}
-	#class{background:#F4F5F7;height:890px;overflow-x: hidden;}
+	#mian{height:11.86rem;width:100%;display: flex;}
+	#class{background:#F4F5F7;height:11.86rem;overflow-x: hidden;}
 	#style{flex:6;background:#F4F5F7;}
-	#class ul li{width:158px;height:108px;font-size:24px;padding-right:190px;box-sizing:border-box;}
-	#class ul li span{display:inline-block;width:118px;height:108px;padding-top:36px;margin-left:20px;border-bottom:1px solid #ccc;}
-	#class .span{display:inline-block;line-height:40px;margin-top:20px;height:88px;}
-	#class .li{width:158px;height:108px;background:#fff;}
-	.style1{height:52px;line-height:52px;font-size:24px;border-left:4px solid #DADDE2;margin-left:2px;padding-left:10px;background:#F4F5F7;}
-	.style2{width:558px;height:840px;background:#fff;overflow-x: hidden;}
+	#class ul li{width:2.1rem;height:1.44rem;font-size:0.32rem;padding-right:2.53rem;box-sizing:border-box;}
+	#class ul li span{display:inline-block;width:1.57rem;height:1.44rem;padding-top:0.48rem;margin-left:0.26rem;border-bottom:0.01rem solid #ccc;}
+	#class .span{display:inline-block;line-height:0.53rem;margin-top:0.26rem;height:1.17rem;}
+	#class .li{width:2.1rem;height:1.44rem;background:#fff;}
+	.style1{height:0.69rem;line-height:0.69rem;font-size:0.32rem;border-left:0.05rem solid #DADDE2;margin-left:0.02rem;padding-left:0.13rem;background:#F4F5F7;}
+	.style2{width:100%;height:11.2rem;background:#fff;overflow-x: hidden;}
 	
-	.cDatails li{padding-top:36px;height:212px;padding-left:35px;padding-bottom:30px;border-bottom: 1px solid #ccc;}
-	.cDatails .tuP{margin-right:18px;display:inline-block;float: left;width:114px;height:114px;}
-	.cDatails del{color:#bbb;font-size:20px;margin-left:10px;}
+	.cDatails li{padding-top:0.48rem;height:2.82rem;padding-left:0.46rem;padding-bottom:0.4rem;border-bottom: 0.01rem solid #ccc;}
+	.cDatails .tuP{margin-right:0.24rem;display:inline-block;float: left;width:1.52rem;height:1.52rem;}
+	.cDatails del{color:#bbb;font-size:0.26rem;margin-left:0.13rem;}
 
-	.cDatails h3{font-size:30px;float: left;width:270px;}
-	.cDatails .sell{float: left;font-size:22px;display:inline-block;width:270px;line-height:38px;}
-	.evaluate{display:inline-block;margin-right:7px;}
-	.cDatails #price{font-weight: bold;color:red;font-size:28px;float:left;width:150px;}
-	.cDatails .reduce{width:42px;height:41px;float: left;margin-left:90px;}
-	.cDatails .add{width:42px;height:41px;float: left;}
-	#qty{width:44px;height:40px;line-height:40px;display:inline-block;font-size:18px;float: left;text-align: center;}
+	.cDatails h3{font-size:0.37rem;float: left;width:4rem;}
+	.cDatails .sell{float: left;font-size:0.29rem;display:inline-block;width:3.6rem;line-height:0.5rem;}
+	.evaluate{display:inline-block;margin-right:0.09rem;}
+	.cDatails #price{font-weight: bold;color:red;font-size:0.37rem;float:left;width:2rem;}
+	/*.addRed{width:180px;height:30px;float}*/
+	.cDatails .reduce{width:0.56rem;height:0.54rem;float: left;margin-left:1.06rem;}
+	.cDatails .add{width:0.56rem;height:0.54rem;float:right;margin-right:0.25rem;}
+	#qty{width:0.58rem;height:0.53rem;line-height:0.53rem;display:inline-block;font-size:0.24rem;float: left;text-align: center;}
 	
-	#foot{background:#141C27;height:96px;position:relative;}
-	#foot .big{width:110px;height:110px;background:pink;border-radius:50%;position:absolute;left:26px;top:-20px;}
-	#foot .min{width:90px;height:90px;background:#2A333C;border-radius:50%;position:absolute;left:10px;top:10px;}
-	#car{position:absolute;left:23px;top:23px;}
-	#foot .footQty{font-size:30px; color:#fff;line-height:96px;margin-left:180px;float: left;}
-	#foot .footQ{margin:0 10px;}
-	#foot .total{font-size:30px; color:#fff;line-height:96px;margin-left:50px;float: left;}
-	#foot .OK{width:210px;height:96px;color:#fff;background:#f60;line-height:96px;text-align: center;float: right;font-size:30px;}
+	#foot{background:#141C27;height:1.28rem;position:relative;}
+	#foot .big{width:1.46rem;height:1.46rem;background:#141C27;border-radius:50%;position:absolute;left:0.34rem;top:-0.26rem;}
+	#foot .min{width:1.2rem;height:1.2rem;background:#2A333C;border-radius:50%;position:absolute;left:0.13rem;top:0.13rem;}
+	#car{position:absolute;left:0.3rem;top:0.3rem;}
+	#foot .footQty{font-size:0.4rem; color:#fff;line-height:1.28rem;margin-left:2.4rem;float: left;}
+	#foot .footQ{margin:0 0.13rem;}
+	#foot .total{font-size:0.4rem; color:#fff;line-height:1.28rem;margin-left:0.66rem;float: left;}
+	#foot .OK{width:2.8rem;height:1.28rem;color:#fff;background:#f60;line-height:1.28rem;text-align: center;float: right;font-size:0.4rem;}
+	.car{width:100%;height:16rem;background-color:rgba(0,0,0,0.2);position:relative;left:0;top:-17.77rem;}
+	.car .carlist{width:100%;height:7.33rem;background:#FFF;position:absolute;left:0;bottom:-0.21rem;}
+	.car .carlist .carlistT{width:100%;height:1.06rem;background: #F4F5F7;font-size:0.37rem;color:#000;line-height: 1.06rem;}
+	.car .carlist .carlistT .carlistT2{float: right;margin-right:0.93rem;color:skyblue;}
+	.car .carlist .carlistT .carlistT1{margin-left:0.93rem;}
+	.car .carlist .carlistB{height:5.33rem;width:100%;}
+	.car .carlist .carlistB li{height:1.3rem;width:100%;font-size:0.4rem;color:#000;line-height:1.3rem;}
+	.car .carlist .carlistB .cPrice{color:red;}
+	.car .carlist .carlistB .count{width:2.13rem;display:inline-block;float: right;margin-top:0.13rem;margin-top:0.4rem;}
+	.car .carlist .carlistB .list{display:inline-block;width:5.6rem;margin-left:0.48rem;}
+	.car .carlist .carlistB .reduce2{display:inline-block;float: left;}
+	.car .carlist .carlistB .add2{display:inline-block;float: left;}
+	.car .carlist .carlistB #qty2{width:0.58rem;height:0.53rem;line-height:0.53rem;display:inline-block;font-size:0.24rem;float: left;text-align: center;}
+	
+	
+	
+	
 	
 </style>
