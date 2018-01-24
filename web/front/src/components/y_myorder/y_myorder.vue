@@ -82,7 +82,8 @@
                 payType:'',
                 state:0,
                 totalQty:0,
-                totalAmount:0
+                totalAmount:0,
+                phoneNum:''
             }
         },
         methods:{
@@ -91,17 +92,18 @@
                 
             },
             toEvaluate(){
-                this.$router.push('evaluate')
-
+                this.$router.push({name:'evaluate',query:{phoneNum:this.phoneNum}})
             }
         },
         mounted(){
-
+            this.phoneNum = localStorage.getItem('phoneNum')
+            console.log(this.phoneNum)
             var self = this;
             baseUrl.get({
                 url:"/getUserOrderA",
-                params:{phoneNum:'1365012344'}
+                params:{phoneNum:this.phoneNum}
             }).then(function(res){
+                console.log(res)
                 self.orderList=res.data[0].goods_json
                 
                 console.log(self.orderList)//是订单中的菜品信息
@@ -112,21 +114,9 @@
                 self.state = res.data[0].state;
 
                 for(var i=0;i<self.orderList.length;i++){
-                    // self.totalQty += parseFloat(self.orderList[i].qty);
-                     self.totalQty += (self.orderList[i].qty)*1;
+                    self.totalQty += (self.orderList[i].qty)*1;
                     self.totalAmount += self.orderList[i].newPrice*self.orderList[i].qty;
                 }
-// 待后端完成。。。。
-
-                // 如下是通过goodsId再去获取商品信息的请求
-                // var goodsId = JSON.parse(res.data[0].goods_json)[0].goods_id;
-
-                // baseUrl.get({
-                //     url:"/getGoodsInfo",
-                //     params:{id:goodsId}
-                // }).then(function(response){
-                //     console.log(response.data[0])
-                // })
             });
         }
     }

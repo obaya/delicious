@@ -58,7 +58,8 @@ var router = new VueRouter({
                     path: 'indexDetail',
                     name: 'indexDetail',
                     component: goodsDetail 
-                },]
+                },
+            ]
         },
          {
             path:'/homeSearch',
@@ -89,11 +90,7 @@ var router = new VueRouter({
         {
             path:'/eiorder',
             component:eiorder
-        },
-        
-
-
-			{
+        },{
 
             path:'/mine',
             name:'mine',
