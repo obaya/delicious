@@ -1,8 +1,8 @@
 <template>
-  <el-container id="p_container" class="p_detail">
-
+  <el-container id="p_container" class="p_detail" style="height:0"  >
+    
     <el-row >
-      <div class="p_bg"></div>
+      <div class="p_bg" style="height:10000px;width:100%" ></div>
       <el-col v-for="(g2_detailitem, key) in g2_detail" >
         <i class="el-icon-error" id="close" @click='back'></i>
         <el-card :body-style="{ padding: '19px' }">
@@ -19,7 +19,6 @@
     </el-row>
   </el-container>     
                     
-
 </template>
 
 <script>
@@ -32,18 +31,19 @@
     data() {
       return {
         g2_detail: [],
+        show:false
       }  
     },
+    props:['gid'],
     methods:{
-        back:function(){
-     
-          this.$router.push({name:'homeSearch'})
-
-        }
+         back:function(){
+          this.$emit('increment')
+        },
     }, 
     mounted(){
-        console.log(this.$route.query.id);
-        var id = this.$route.query.id;
+    
+        var id = this.gid;
+        console.log(id)
         baseUrl.get({
           url : "/getGoodsInfo",
           params : {id:id} 

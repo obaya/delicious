@@ -1,6 +1,6 @@
 <template>
   <el-container id="p_container">
-   <router-view></router-view>
+     <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
     <el-header id="p_search_header">
       <div class="header_icon"><i class="el-icon-back" @click='back' ></i>|&nbsp;搜索</div>
       <div class="p_header_conntent" @click="search">  
@@ -15,21 +15,23 @@
       </div>     
      
     </el-main>
+    <footermodel></footermodel>
   </el-container>     
            
 </template>
 <script>
   import $ from 'jquery'
   import './homesearch.scss'
+  import goodsDetailmodel from '../../components/goodsDetail/goodsDetail.vue';
   import baseUrl from '../../utils/baseurl.js';
-  
   export default {
     name: 'app',
     data() {
       return {
-        id:0,
+        gid:0,
         merchant: [],
         g2_detail: [],
+        show:false,
       }
        
     }, 
@@ -57,15 +59,21 @@
         search_input.value = "";
         if(_event.target.tagName == 'P'){
           search_input.value = _event.target.innerText;
-          this.id =  _event.target.getAttribute('id')
+          this.gid =  _event.target.getAttribute('id')
         }
       },
-    
+      a(){
+         this.show=false;
+      },
       search_goodsdetail: function(){
-        console.log(666);
-        var id = this.id;
-        this.$router.push({name:'goodsDetail',query:{id: id}});
-      }
+   
+        this.show = true;
+      },
+
     },
+    components: {
+        goodsDetailmodel
+      },
+
   }
 </script> 

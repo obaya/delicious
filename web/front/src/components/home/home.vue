@@ -1,6 +1,6 @@
 <template>
-  <el-container id="p_container">
-   
+  <div id="p_container">
+    <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
     <el-header>
       <div class="p_header_conntent" @click="search">  
         <el-input id="homeinput" placeholder="请输入内容" v-model="input10" clearable>
@@ -36,10 +36,10 @@
            <el-row >
              <el-col :span="12" v-for="(goodsitem, key) in goods" class="p_c_content">
                 <div class="grid-content bg-purple">
-                  <div class="p_c_content2" :id="goodsitem.id">
-                    <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
-                    <p><a class="title" v-text ="goodsitem.title"></a><a class="price" v-text="'$'+goodsitem.newPrice"></a></p>
-                    <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
+                  <div class="p_c_content2" >
+                    <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" @click="showgoods" :id="goodsitem.id"/>
+                    <p><a class="title" v-text ="goodsitem.title"></a><a class="price" v-text="'￥'+goodsitem.newPrice"></a></p>
+                    <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus" @click="add" :id="goodsitem.type"></i></a></p>
                   </div>
                 </div>
               </el-col>
@@ -52,58 +52,132 @@
            <el-row >
              <el-col :span="12" v-for="(recommenditem, key) in recommend" class="p_c_content">
                 <div class="grid-content bg-purple">
-                   <div class="p_c_content2" :id="recommenditem.id">
-                      <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" @click="showgoods" />
-                      <p><a class="title" v-text ="recommenditem.title"></a><a class="price" v-text="'$'+recommenditem.newPrice">$353元</a></p>
-                      <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"></i></a></p>
+                   <div class="p_c_content2" >
+                      <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" @click="showgoods" :id="recommenditem.id"/>
+                      <p><a class="title" v-text ="recommenditem.title"></a><a class="price" v-text="'￥'+recommenditem.newPrice"></a></p>
+                      <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"  @click="add" :id="recommenditem.type"></i></a></p>
                     </div>
                 </div>
               </el-col>
            </el-row>
        </section>
     </main>
-
+      
     <footermodel></footermodel>
 
-  </el-container>
+  </div>
 
 </template>
 
 <script>
   import './home.scss'
   import baseUrl from '../../utils/baseurl.js';
+  import goodsDetailmodel from '../../components/goodsDetail/goodsDetail.vue';
   import footermodel from '../../components/footer/footer.vue';
   export default {
     name: 'app',
     data () {
       return {
-      
+         user_id:0,
+         qty:1,
+         gid:0,
          input10: '',
          dataset: [],
          goods: [],
          recommend: [],
+         show:false,
+         
       }
     }, 
     methods: {
+      a(){
+         this.show=false;
+      },
       search: function(){
-        console.log(666)
+   
         this.$router.push({name:'homeSearch'});
       },
+      add(e){
+        if(e.target.tagName == 'I'){
+          var goods_id = e.target.parentNode.parentNode.parentNode.children[0].id;
+          // var type = e.target.id;
+          console.log(goods_id);
+          console.log(this.user_id);
+          baseUrl.get({
+            url : "/insertCart" ,
+            params : {
+              goods_id:goods_id,
+              user_id:this.user_id,
+            },
+          }).then(function(res){
+            console.log('加入购物车成功')
+          })
+        }
+      },
       showgoods:function(e){
-
-      
-         if(e.target.tagName == 'IMG'){
-          var id = e.target.parent.id;
-           console.log(id);
-          // this.$router.push({name:'goodsDetail',query:{id: id}});
+         if(e.target.nodeName == 'IMG'){
+            this.gid = e.target.id;
+            console.log(this.gid )
+            console.log(555)
+            this.show = true;
+            // this.xs = true;
         }
       }
 
     },
     components: {
-      footermodel
+      footermodel,
+      goodsDetailmodel
     },
     mounted(){
+         
+      
+      //生成用户名 
+      var CrDate = '';
+
+      // 随机6位数  
+      var Atanisi = Math.floor(Math.random() * 9999);  
+
+      //时间  
+      var myDate = new Date();  
+      // var tY = myDate.getFullYear();   //年  
+      // var tM = myDate.getMonth()+1;    //月  
+      // if (tM >= 1 && tM <= 9) {  
+      //   tM = "0" + tM;  
+      // }  
+      // var tD = myDate.getDate();         //日  
+      // if (tD >= 1 && tD <= 9) {  
+      //   tD = "0" + tD;  
+      // }  
+      // var tH = myDate.getHours();         //时  
+      // if (tH >= 1 && tH <= 9) {  
+      //   tH = "0" + tH;  
+      // }  
+      var tm = myDate.getMinutes();         //分  
+       if (tm >= 1 && tm <= 9) {  
+         tm = "0" + tm;  
+      }  
+      var tS = myDate.getSeconds();          //秒  
+       if (tS >= 1 && tS <= 9) {  
+          tS = "0" + tS;  
+      }  
+      //时间  
+      CrDate =tm+ tS+Atanisi; // 整合
+      console.log(CrDate)
+      var Num = '';
+      baseUrl.get({
+         url : "/register" ,
+         params : {type:0,cardNum:CrDate}
+      }).then(function(res){
+        console.log(res)
+        Num = res.data.result.insertId;
+        console.log(Num)
+        this.user_id = Num;
+        console.log(this.user_id )
+            // return Num;
+      }.bind(this))
+      // document.cookie = 'user =' + CrDate;
+
       //轮播图
       baseUrl.get({
         url : "/getSlideShow" 
@@ -249,18 +323,20 @@
       }.bind(this)).then(function(_res){
           baseUrl.get({
             url : "/getGoodList" ,
-            params : {impose:100}
+            params : {impose:36}
           }).then(function(_res){
               let recommenddata= [];
               let characteristic = [];
               let res = _res.data.forEach((item,idx)=>{
-                // console.log(item)/
-                if (item.type===1) {
+                console.log(item.type)
+                if (item.type===0) {
                   characteristic.push(item);
                   this.goods = characteristic;
+                  // console.log(characteristic )
                 }else{
                   recommenddata.push(item);
-                  this.recommend = recommenddata
+                  this.recommend = recommenddata;
+                   // console.log(this.recommend )
                 }
                 // console.log(characteristic,recommenddata);
 
