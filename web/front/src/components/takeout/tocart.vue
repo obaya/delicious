@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tocart">
         <eheader></eheader>
         <div class="container">
           <div class="my">我的</div>
@@ -25,9 +25,9 @@
           
         </div>
         <div class="buy">
-            <div class="sum">总计￥<span>{{total}}</span></div>
-            <!-- <div  class="buybtn" @click="suborder">提交订单</div> -->
-            <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link>
+            <div class="sum">总计￥<span>{{total.toFixed(2)}}</span></div>
+            <div  class="buybtn" @click="suborder">提交订单</div>
+            <!-- <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link> -->
         </div>
         <efooter></efooter>
     </div>
@@ -48,9 +48,8 @@
                total:0,
                money:0,
                goodsdata:[],
-               qty:0,
-               array:[]
-               
+               array:[],
+               user_id:3
                
             }
         },
@@ -59,7 +58,7 @@
             
             var res = baseUrl.get({
               url : "/getUserCart",
-              params : {user_id:5},
+              params : {user_id:3,type:1},
             }).then(res=>{
               // 这里获取返回的结果
                     console.log(res.data);
@@ -77,8 +76,21 @@
           remove(qty,price,index){
                console.log(qty,price,index);
                this.goodsdata[index].qty--;
-               if(qty<=0){
-                   this.goodsdata[index].qty=0;
+               // console.log(this.goodsdata[index]);
+               if(this.goodsdata[index].qty<=0){
+                   // this.goodsdata[index].qty=0;
+                   
+
+                   baseUrl.get({
+                     url:'/deleteUserCartGoods',
+                     params:{
+                        user_id:3,
+                        goods_id:this.goodsdata[index].goods_id
+                     }
+                   }).then(res=>{
+                      // console.log(res);
+                      this.goodsdata.splice(index,1);
+                   })
                }
                this.total=0;
                this.goodsdata.forEach((item,index)=>{
@@ -102,7 +114,7 @@
                   params:{
                     id:this.goodsdata[index].id,
                     goods_id:this.goodsdata[index].goods_id,
-                    user_id:5,
+                    user_id:3,
                     qty:this.goodsdata[index].qty
                   }
                }).then(res=>{
@@ -113,14 +125,16 @@
                baseUrl.get({
                   url:'/createOrder',
                   params:{
-                      user_id:1,
+                      user_id:3,
                       tableNum:'',
                       total:this.total,
-                      type:1,
+                      type:0,
                       state:0
                   }
                }).then(res=>{
                     this.goodsdata=[];
+                    this.$router.push({path:'/toorder',query:{user_id:this.user_id}});
+                    // console.log(res);
                })
           }
 
