@@ -7,9 +7,9 @@
         </div>
         <div class="edit-info">
             <ul>
-                <li v-for="(value,key) in addressDate">
-                    <input type="text"  style="border: 0px;outline:none;font-size:0.5rem;color:#666;" :placeholder="value" />
-                    <i class="el-icon-circle-close" @click="clearContant($event)"></i>
+                <li v-for="(val,key) in addressDate" class="forappend">
+                    <input type="text"  style="border: 0px;outline:none;font-size:0.5rem;color:#666;" :placeholder="val" :value="val" :v-model="addressDate[key]"/>
+                    <i class="el-icon-circle-close" @click="clearContant($event)" ></i>
                 </li>
             </ul>
             <div class="save-btn">
@@ -25,18 +25,19 @@
     export default{
         data() {
             return {
+                id:'',
                 name: '',
                 address: '',
-                phoneNo: '',
-                input2: '',
+                phoneNum: '',
                 addressDate:{
                     name:'收货人',
                     address:'收货地址',
-                    phoneNo:'联系电话'
+                    phoneNum:'联系电话'
                 }
             }
         },
         methods: {
+
             back(){
                 this.$router.go(-1)
             },
@@ -44,26 +45,38 @@
                 $(e.target).prev().val('')
             },
             saveAddress(){
+                var self = this;
+                var text = []
+                for(var i=0;i<$('input').length;i++){
+                    text.push($('input').eq(i).val())
+                }
                 baseUrl.get({
                     url:"/updateUserInfo",
                     params:{
                         id:this.$route.query.id,
-                        userName:this.$route.query.name,
-                        side:this.$route.query.address,
-                        phoneNum:this.$route.query.phoneNum
+                        userName:text[0],
+                        side:text[1],
+                        phoneNum:text[2],
                     }
                 }).then(function(res){
                     console.log(res)
+                    if(res.data.mess == '修改成功'){
+                        self.open2();
+                    }
                 });
-            }
+            },
+            open2() {
+                this.$message({
+                    message: '修改成功',
+                    type: 'success'
+                });
+            },
         },
         mounted(){
-            console.log(this.$route.query.id)
-            if(this.$route.query.name){
+            if(this.$route.query.id){
                 this.addressDate.name = this.$route.query.name;
                 this.addressDate.address = this.$route.query.address;
-                this.addressDate.phoneNo = this.$route.query.phoneNum;
-                
+                this.addressDate.phoneNum = this.$route.query.phoneNum;
             }
 
         }  
@@ -71,6 +84,3 @@
     }
 
 </script>
-<!-- http://127.0.0.1:88/updateUserInfo?id=8&userName=%E6%96%B0%E7%9A%84%E5%90%8D%E5%AD%97&side=%E5%B9%BF%E5%B7%9E%E5%8C%97%E4%BA%AC&phoneNum=1221
-黄育平 12:19:35
-id//参数  userName side phoneNum -->

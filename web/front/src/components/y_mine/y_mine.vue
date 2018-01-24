@@ -4,7 +4,7 @@
             <div class="m-img"></div>
             <div class="m-information">
                 <div><span>卡号：</span><span>{{cardNum}}</span></div>
-                <div><span>手机号：</span><span>{{13498987898}}</span></div>
+                <div><span>手机号：</span><span>{{phoneNum}}</span></div>
             </div>
         </div>
         <div class="m-center">
@@ -33,24 +33,28 @@
                 </li>
             </ul>
         </div>
-        <div class="m-bottom"></div>
+        <div class="m-bottom">
+            <foooter></foooter>
+        </div>
     </div>
 </template>
 <script type="text/javascript">
     import './y_mine.scss';
+    import foooter from '../footer/footer.vue'
     export default{
         data(){
             return {
                 cardNum:'98767',
-                phoneNum:'13498987898'
+                phoneNum:'1371012345'
             }
         },
         methods:{
             toMyOrder(){
-                this.$router.push('yorder')
+                this.$router.push({name:'yorder'})
+
             },
             toAddress(){
-                this.$router.push('address')
+                this.$router.push({name:'address'})
             },
 
             // element弹窗
@@ -80,6 +84,13 @@
                     }
                 })
             },
+        },
+        mounted(){
+            localStorage.setItem('phoneNum',this.phoneNum)
+            localStorage.getItem('phoneNum',this.phoneNum)
+        },
+        components:{
+            foooter,
         }
     }
 
