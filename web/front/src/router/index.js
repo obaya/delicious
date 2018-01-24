@@ -64,15 +64,7 @@ var router = new VueRouter({
          {
             path:'/homeSearch',
             name:'homeSearch',
-            component:homeSearch,
-            children:[
-                {
-                    path: 'goodsDetail',
-                    name: 'goodsDetail',
-                    component: goodsDetail 
-                },]
-      
-            
+            component:homeSearch  
         },
         {
             path:'/tocart',

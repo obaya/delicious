@@ -41,11 +41,13 @@
 <script type="text/javascript">
     import './y_mine.scss';
     import foooter from '../footer/footer.vue'
+    import baseUrl from '../../utils/baseurl.js'
     export default{
         data(){
             return {
                 cardNum:'98767',
-                phoneNum:'1371012345'
+                phoneNum:'1371012345',
+                user_id:6
             }
         },
         methods:{
@@ -86,8 +88,22 @@
             },
         },
         mounted(){
-            localStorage.setItem('phoneNum',this.phoneNum)
-            localStorage.getItem('phoneNum',this.phoneNum)
+            var self = this;
+            localStorage.setItem('user_id',this.user_id)
+
+            // 发请求获取手机号卡号写入头部
+            // 拿取存在cookie中的userid
+            // this.user_id=document.cookie.split('=')[1]
+            baseUrl.get({
+                url:"/getUserOrderA",
+                // params:{phoneNum:user_id}
+                params:{phoneNum:this.user_id}
+
+                
+            }).then(function(res){
+                self.cardNum = res.data[0].cardNum
+                self.phoneNum = res.data[0].phoneNum
+            })
         },
         components:{
             foooter,

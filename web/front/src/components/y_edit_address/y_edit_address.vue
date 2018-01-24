@@ -59,7 +59,6 @@
                         phoneNum:text[2],
                     }
                 }).then(function(res){
-                    console.log(res)
                     if(res.data.mess == '修改成功'){
                         self.open2();
                     }

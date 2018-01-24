@@ -55,7 +55,6 @@
         },
 
         mounted:function(){
-            
             var res = baseUrl.get({
               url : "/getUserCart",
               params : {user_id:3,type:1},

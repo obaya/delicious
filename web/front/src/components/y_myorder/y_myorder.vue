@@ -15,7 +15,7 @@
                 <i :class="['el-icon-success',{active:state==2}]"></i>
             </div>
             <div class="shuoming">  
-                <p>等待处理</p>
+                <p>待处理</p>
                 <p>已确认</p>
                 <p>已完成</p>
             </div>
@@ -70,7 +70,6 @@
 </template>
 <script type="text/javascript">
     import './y_myorder.scss';
-    // import './y_myorder.js';
     import baseUrl from '../../utils/baseurl.js'
     export default{
         data(){
@@ -83,7 +82,9 @@
                 state:0,
                 totalQty:0,
                 totalAmount:0,
-                phoneNum:''
+                phoneNum:'',
+                user_id:''
+
             }
         },
         methods:{
@@ -92,23 +93,34 @@
                 
             },
             toEvaluate(){
-                this.$router.push({name:'evaluate',query:{phoneNum:this.phoneNum}})
+                this.$router.push({name:'evaluate'})
+            },
+            toMyTime(_time) {
+                // 2018-01-24T01:19:06.000Z
+                return _time.substr(0,19).replace('T',' ')
             }
         },
         mounted(){
-            this.phoneNum = localStorage.getItem('phoneNum')
-            console.log(this.phoneNum)
+            // 拿取存在cookie中的useridb
+            this.user_id=document.cookie.split('=')[1]
+            this.user_id=localStorage.getItem('user_id')
+
             var self = this;
             baseUrl.get({
                 url:"/getUserOrderA",
-                params:{phoneNum:this.phoneNum}
+                // params:{phoneNum:user_id}
+                params:{phoneNum:this.user_id}
+                
             }).then(function(res){
                 console.log(res)
                 self.orderList=res.data[0].goods_json
-                
-                console.log(self.orderList)//是订单中的菜品信息
+               
                 self.orderNum = res.data[0].orderNum;
-                self.createTime = res.data[0].create_at;
+                // 下单时间
+                self.createTime = self.toMyTime(res.data[0].create_at);
+
+
+
                 self.orderState = res.data[0].state;
                 self.payType = res.data[0].type;
                 self.state = res.data[0].state;

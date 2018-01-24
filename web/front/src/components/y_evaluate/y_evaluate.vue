@@ -48,7 +48,7 @@
         data() {
             return {
                 orderList:[],
-                userId:'',
+                user_id:'',
                 goodsId:[],
                 grade:[],
                 comment: [],
@@ -62,8 +62,6 @@
         methods:{
             getStart(idx){
                 this.grade.push(idx+1)
-                console.log(this.grade)
-                console.log("goodsId"+this.goodsId)
             },
             back(){
                 this.$router.go(-1)
@@ -71,14 +69,14 @@
             toHome(){
                 this.$router.push('/')
             },
-            // 通过userId将该用户的订单菜品渲染在页面，再将userId，goodsId，菜品，评论写入数据库
+            // 通过user_id将该用户的订单菜品渲染在页面，再将user_id，goodsId，菜品，评论写入数据库
             saveEva(){
                 if(this.grade.length < this.orderList.length){
                     this.open1()
                 }else{
                     for(var i=0;i<this.orderList.length;i++){
                         var data = {
-                            user_id:this.userId,
+                            user_id:this.user_id,
                             goods_id:this.goodsId[i],
                             grade:this.grade[i],
                             comment:this.comment[i]
@@ -94,7 +92,6 @@
                     url:"/insertComment",
                     params:data
                 }).then(function(res){
-                    console.log(res)
                     if(res.data.status == 'ok'){
                         self.open2()
                         self.tijiao = false;
@@ -116,18 +113,17 @@
 
         },
         mounted(){
-            this.phoneNum = localStorage.getItem('phoneNum')
+            this.user_id=localStorage.getItem('user_id')
             var self = this;
             baseUrl.get({
                 url:"/getUserOrderA",
-                params:{phoneNum:this.phoneNum}
+                params:{phoneNum:this.user_id}
             }).then(function(res){
-                console.log(res.data[0])
                 self.orderList=res.data[0].goods_json
                 for(var i=0;i<self.orderList.length;i++){
                     self.imgurl.push(self.orderList[i].imgUrl.split(';')[0])
                     self.goodsId.push(self.orderList[i].goods_id)
-                    self.userId = res.data[0].user_id
+                    self.user_id = res.data[0].user_id
                     
                 }
             });

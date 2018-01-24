@@ -33,7 +33,7 @@
                 name:'',
                 address:'',
                 phoneNum:'',
-                userid:0
+                user_id:''
             }
         },
         methods:{
@@ -44,23 +44,24 @@
                 this.$router.push('editAddress')
             },
             editAddress(e){
-                this.$router.push({name:'editaddress',query:{id:this.userid,phoneNum:this.phoneNum,name:this.name,address:this.address}})
+                this.$router.push({name:'editaddress',query:{id:this.user_id,phoneNum:this.phoneNum,name:this.name,address:this.address}})
                 
 
             },
         },
         mounted(){
-            this.phoneNum = localStorage.getItem('phoneNum')
+            this.user_id=localStorage.getItem('user_id')
+
             var self = this;
 
             baseUrl.get({
                 url:"/getUserInfoA",
-                params:{phoneNum:this.phoneNum}
+                params:{phoneNum:this.user_id}
             }).then(function(res){
-                console.log(res.data[0])
                 self.name = res.data[0].userName;
                 self.address = res.data[0].side;
-                self.userid = res.data[0].id;
+                self.user_id = res.data[0].id;
+                self.phoneNum = res.data[0].phoneNum;
             });
         }
     }
