@@ -1,5 +1,5 @@
 <template>
-  <el-container id="p_container" class="p_detail" style="height:0"  >
+  <div id="p_container" class="p_detail" style="height:0"  >
     
     <el-row >
       <div class="p_bg" style="height:10000px;width:100%" ></div>
@@ -7,6 +7,7 @@
         <i class="el-icon-error" id="close" @click='back'></i>
         <el-card :body-style="{ padding: '19px' }">
           <img v-bind:src="g2_detailitem.imgUrl" class="image">
+        
           <div >
             <div class="bottom clearfix"> 
                <span style="float: left;margin-right:30px" v-text ="g2_detailitem.title"></span>   
@@ -17,7 +18,7 @@
         </el-card>
       </el-col> 
     </el-row>
-  </el-container>     
+  </div>     
                     
 </template>
 

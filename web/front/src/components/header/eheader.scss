@@ -1,0 +1,31 @@
+.header{
+        flex:1;
+        background: #FD7400;
+        color:#fff;
+        height:1.28rem;
+        font-size:0.56rem;
+        line-height:1.28rem;
+        text-align:center;
+        position:relative;
+        .left{
+            display:inline-block;
+            position:absolute;
+            left:0;
+            top:50%;
+            transform:translate(0,-50%);
+            h2{
+                font-size:0.427rem;
+                display:inline-block;
+
+            }
+            .return{
+                        // position:absolute;
+                        // left:0.133rem;
+                        // top:50%;
+                        font-size:0.48rem;
+                        // transform:translate(0,-50%);
+                        font-weight:bold;
+                    }
+        }
+        
+     }

@@ -1,0 +1,83 @@
+body,html{
+    height: 100%;
+}
+#app{
+  height:100%;
+  >div{
+      // height:100%;
+      display:flex;
+      flex-direction:column;
+      background: #F2F2F2;
+   }
+      .container{
+        height:13.467rem;
+        overflow-y: auto;
+        flex:10;
+     }  
+     // .title{
+     //    background: #FD7402;
+     //    color:#fff;
+     //    font-size:0.4rem;
+     //    height:1.067rem;
+     //    text-align:center;
+     //    line-height:1.067rem;
+     // } 
+   .site{    
+      li{
+        background: #fff;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        width:100%;
+        height:1.173rem;
+        padding:0 0.4rem;
+        border-bottom:1px solid #ccc;
+        &:nth-child(1){
+            margin:0.56rem 0;
+        }
+        &:nth-child(2),&:nth-child(3){
+            margin-bottom:0.56rem;
+        }
+
+        input{
+            width:100%;
+            height:0.453rem;
+            border-color:#fff;
+            border-left:0px;
+            border-top:0px;
+            border-right:0px;
+            border-bottom:1px;
+            font-size:0.453rem;
+        }
+        .checkbox{
+            height:0.747rem;
+        }
+        .weixin{
+            font-size:0.453rem;
+            line-height:1.173rem;
+        }
+      }
+   }
+   .oramount{
+       font-size:0.373rem;
+       line-height:1.12rem;
+       height:1.12rem;
+       padding-top:0.32rem;
+       text-align:center;
+       margin:0.4rem 0;
+       span{
+          color:#D0603A;
+       }
+   }
+   .sub{
+       background: #0080ED;
+       color:#fff;
+       font-size:0.427rem;
+       text-align:center;
+       width: 9.227rem;
+       height: 1.067rem;
+       margin :0 auto;
+       display:block;
+       border-radius:5%;
+   }
+}

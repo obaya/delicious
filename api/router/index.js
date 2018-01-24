@@ -4,7 +4,8 @@ var app = express();
 
 app.use(bp.urlencoded({extended: false}));
 
-var rooms = require('./rooms')
+var rooms = require('./rooms');
+var getorder=require('./getorder');
 
 module.exports = {
     start: function(_port){
@@ -22,6 +23,7 @@ module.exports = {
         });          
 
         rooms.register(app);
+        getorder.register(app);
 
         app.listen(_port,function(){
             console.log('zou')

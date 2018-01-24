@@ -1,6 +1,7 @@
 <template>
-  <div id="p_container">
+  <div id="p_container"  >
     <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
+    <div id="loading"></div>
     <el-header>
       <div class="p_header_conntent" @click="search">  
         <el-input id="homeinput" placeholder="请输入内容" v-model="input10" clearable>
@@ -15,14 +16,14 @@
        <section>
           <!-- image -->
           <section id="tabPic">
-              <ul id="picList" style="transition: 0.5s; transform: translateX(-2560px);">
-                  <li v-for="(item, key) in dataset"><img v-bind:src="item.imgUrl[0]" width="100%" alt="" /></li>
+              <ul id="picList" style="transition: 0.5s; transform: translateX(-2250px);">
+                  <li v-for="(item, key) in dataset"><img v-bind:src="item.carouselUrl"  alt="" /></li>
               </ul>
               <!-- dot -->
               <section class="picMask">
                   <p>太晚卤菜特价，美味ni知道！</p>
                   <nav>
-                    <a></a><a></a><a></a><a class="active"></a>
+                    <a></a><a></a class="active"><a></a><a ></a>
                   </nav>
               </section>
               <a href="javascript:;" class="restaurant">蓝湾小吃</a>
@@ -129,9 +130,19 @@
       footermodel,
       goodsDetailmodel
     },
+    beforeMount(){
+      document.onreadystatechange = completeLoading;
+      function completeLoading() {
+        if (document.readyState == "complete") {
+            var loadingMask = document.getElementById('loading');
+            loadingMask.parentNode.removeChild(loadingMask);
+
+        }
+
+      }
+    },
     mounted(){
-         
-      
+     
       //生成用户名 
       var CrDate = '';
 
@@ -174,13 +185,13 @@
         console.log(Num)
         this.user_id = Num;
         console.log(this.user_id )
-            // return Num;
+        document.cookie = 'user_id =' + Num ;
       }.bind(this))
-      // document.cookie = 'user =' + CrDate;
 
       //轮播图
       baseUrl.get({
-        url : "/getSlideShow" 
+        // url : "/getSlideShow" 
+        url : "/getCarousel" 
       }).then(function(res){
     
           this.dataset = res.data;
@@ -323,7 +334,7 @@
       }.bind(this)).then(function(_res){
           baseUrl.get({
             url : "/getGoodList" ,
-            params : {impose:36}
+            params : {impose:9999999}
           }).then(function(_res){
               let recommenddata= [];
               let characteristic = [];
@@ -331,15 +342,13 @@
                 console.log(item.type)
                 if (item.type===0) {
                   characteristic.push(item);
-                  this.goods = characteristic;
+                  this.goods = characteristic.slice(0, 4);
                   // console.log(characteristic )
                 }else{
                   recommenddata.push(item);
                   this.recommend = recommenddata;
                    // console.log(this.recommend )
                 }
-                // console.log(characteristic,recommenddata);
-
             }) 
           }.bind(this))
       }.bind(this));

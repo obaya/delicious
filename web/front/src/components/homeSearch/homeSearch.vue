@@ -15,7 +15,7 @@
       </div>     
      
     </el-main>
-    <footermodel></footermodel>
+
   </el-container>     
            
 </template>

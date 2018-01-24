@@ -1,12 +1,25 @@
 
  #p_container{
+      #loading{
+        position:fixed;    
+        top:0;    
+        left:0;    
+        width:100%;    
+        height:100%;    
+        z-index:300;    
+        background-image:url(../../assets/2.gif);    
+        background-repeat:no-repeat;    
+        background-position:center center;    
+        background-color:#000;    
+        background-color:rgba(0,0,0,0.5);    
+        filter:alpha(opacity=50);  
+      }
   
       a{
         color:#333;
       }
       height:100%;
-  
-  
+
       // header
       .el-header{
 
@@ -70,7 +83,7 @@
  // mian
 
  #p_main{
-
+   font-size:0.346667rem;
    flex:1;
    overflow-x: hidden;
    /*轮播图*/
@@ -81,10 +94,10 @@
    }
    #picList{
     overflow:hidden;
-    width:500%;
+    width:400%;
     li{
       float:left;
-      width:20%;
+      width:25%;
      }
     img{
      width: 100%;
@@ -171,12 +184,14 @@
     background:#f0f0f0;
     padding-top: 0.346667rem; 
     border-bottom:0.013333rem solid #ccc;
+    padding:0 0.133333rem;
     .p_c_title{
       text-align:center;
       img{
         width: 9.333333rem;
         height:1.0rem;
         margin:0 auto;
+        margin-top: 0.333333rem;
 
       }
       .mtitle{
@@ -212,16 +227,20 @@
   .p_c_content2{
     border:0.026667rem solid #ccc;
     background:#fff;
-    height:3.9rem;
+    height:3.7rem;
+    margin:0.1rem;
+    p{
+      font-size:0.32rem;
+    }
    }
   .grid-content {
     margin-top: 0.266667rem;
     padding-top: 0.266667rem;
-    padding:0.133333rem;
     border-radius: 4px;
     height:4.1rem;
 
     img{
+      padding:0.133333rem;
       height:2.36rem;
     }
     .title{
@@ -233,7 +252,7 @@
     p{
       height:0.533333rem;
       line-height:0.533333rem;
-      padding:0.133333rem;
+      padding: 0 0.133333rem;
 
       i{
         height:0.2rem;
@@ -255,7 +274,7 @@
     background-color: #f9fafc;
   }
   .p_c_content{
-    height: 4.1rem;
+    height: 4.4rem;
   }
   .el-main{
     padding:0.133333rem;
@@ -263,7 +282,7 @@
   .p_recommend{
     margin-bottom:1.0rem;
   }
-
+ 
 
 
 
