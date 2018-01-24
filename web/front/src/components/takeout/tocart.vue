@@ -29,7 +29,7 @@
             <div  class="buybtn" @click="suborder">提交订单</div>
             <!-- <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link> -->
         </div>
-        <efooter></efooter>
+        <efooter route="/tocart"></efooter>
     </div>
 </template>
 <script type="text/javascript">
