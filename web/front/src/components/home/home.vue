@@ -102,8 +102,8 @@
         if(e.target.tagName == 'I'){
           var goods_id = e.target.parentNode.parentNode.parentNode.children[0].id;
           // var type = e.target.id;
-          console.log(goods_id);
-          console.log(this.user_id);
+          // console.log(goods_id);
+          // console.log(this.user_id);
           baseUrl.get({
             url : "/insertCart" ,
             params : {
@@ -118,8 +118,8 @@
       showgoods:function(e){
          if(e.target.nodeName == 'IMG'){
             this.gid = e.target.id;
-            console.log(this.gid )
-            console.log(555)
+            // console.log(this.gid )
+            // console.log(555)
             this.show = true;
             // this.xs = true;
         }
@@ -174,7 +174,7 @@
       }  
       //时间  
       CrDate =tm+ tS+Atanisi; // 整合
-      console.log(CrDate)
+      // console.log(CrDate)
       var Num = '';
       baseUrl.get({
          url : "/register" ,
@@ -182,9 +182,9 @@
       }).then(function(res){
         console.log(res)
         Num = res.data.result.insertId;
-        console.log(Num)
+        // console.log(Num)
         this.user_id = Num;
-        console.log(this.user_id )
+        // console.log(this.user_id )
         document.cookie = 'user_id =' + Num ;
       }.bind(this))
 
@@ -339,7 +339,7 @@
               let recommenddata= [];
               let characteristic = [];
               let res = _res.data.forEach((item,idx)=>{
-                console.log(item.type)
+                // console.log(item.type)
                 if (item.type===0) {
                   characteristic.push(item);
                   this.goods = characteristic.slice(0, 4);
