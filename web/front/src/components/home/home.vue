@@ -1,7 +1,7 @@
 <template>
   <div id="p_container"  >
     <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
-    <div id="loading"></div>
+    <!-- <div id="loading"></div> -->
     <el-header>
       <div class="p_header_conntent" @click="search">  
         <el-input id="homeinput" placeholder="请输入内容" v-model="input10" clearable>
@@ -31,6 +31,17 @@
        </section>
 
        <!-- body -->
+       <section class="introduce-msg">
+    <!--      <section class="introduce">
+           <p>蓝湾小吃【营业中】</p>
+           <p>地址：河南省郑州市金水区农业路71号中州国际饭店</p>
+           <p>起价送：￥30元送餐</p>
+         </section> -->
+         <section class="Order">
+           <div class="Take-out " ><img src="../../assets/1.jpg" alt="" /></div>
+           <div class="Eat "><img src="../../assets/2.jpg" alt="" @click="Take_out"/></div>
+         </section>
+       </section>
        <!-- 特价 -->
        <section class="p_characteristic ">
          <h1 class="p_c_title"><img src="../../assets/characteristic.png" alt="" /><p class="mtitle">超值实惠，先点两份</p></h1>
@@ -62,8 +73,9 @@
               </el-col>
            </el-row>
        </section>
+       
     </main>
-      
+        
     <footermodel></footermodel>
 
   </div>
@@ -118,29 +130,31 @@
       showgoods:function(e){
          if(e.target.nodeName == 'IMG'){
             this.gid = e.target.id;
-            // console.log(this.gid )
-            // console.log(555)
             this.show = true;
             // this.xs = true;
-        }
+         }
+      },
+      Take_out:function(){
+        document.cookie = 'Take_out =' + 'wai' ;
       }
+
 
     },
     components: {
       footermodel,
       goodsDetailmodel
     },
-    beforeMount(){
-      document.onreadystatechange = completeLoading;
-      function completeLoading() {
-        if (document.readyState == "complete") {
-            var loadingMask = document.getElementById('loading');
-            loadingMask.parentNode.removeChild(loadingMask);
+    // beforeMount(){
+    //   document.onreadystatechange = completeLoading;
+    //   function completeLoading() {
+    //     if (document.readyState == "complete") {
+    //         var loadingMask = document.getElementById('loading');
+    //         loadingMask.parentNode.removeChild(loadingMask);
 
-        }
+    //     }
 
-      }
-    },
+    //   }
+    // },
     mounted(){
      
       //生成用户名 

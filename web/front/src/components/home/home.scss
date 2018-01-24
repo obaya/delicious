@@ -14,6 +14,37 @@
         background-color:rgba(0,0,0,0.5);    
         filter:alpha(opacity=50);  
       }
+      .Take-out{
+        float: left;
+        padding-left:10%;
+      }
+      .Eat{
+        float: right;
+        padding-right:10%;
+      }
+      .introduce-msg{
+        margin-top:0.4rem;
+        width: 100%;
+        background:#fff;
+      }
+      .Order,.introduce{
+        background:#fff;
+        padding:0.366667rem;
+        height:3.003333rem;
+        margin-bottom: 0.333333rem;
+      }
+       .Order{
+          border-top:0.013333rem solid #ccc;
+          border-bottom:0.013333rem solid #ccc;
+       }
+      .introduce{
+        height:1.33333rem;
+        p{
+          height:0.4rem;
+          line-height:0.4rem;
+
+        }
+      }
   
       a{
         color:#333;
@@ -280,7 +311,7 @@
     padding:0.133333rem;
   }
   .p_recommend{
-    margin-bottom:1.0rem;
+    margin-bottom:0.5rem;
   }
  
 

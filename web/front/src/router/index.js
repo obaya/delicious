@@ -9,9 +9,9 @@ import homeSearch from '../components/homeSearch/homeSearch.vue';// 搜索页面
 import goodsDetail from '../components/goodsDetail/goodsDetail.vue';// 详情
 
 
-import tocart from '../components/takeout/tocart.vue';
+import tocart from '../components/takeout/tocart.vue';//外卖购物车
 import toorder from '../components/takeout/toorder.vue';
-import eicart from '../components/eatin/eicart.vue';
+import eicart from '../components/eatin/eicart.vue';//堂食购物车
 import eiorder from '../components/eatin/eiorder.vue';
 
 
@@ -54,14 +54,7 @@ var router = new VueRouter({
             path:'/',
             name:'home',
             component:homeComponent,
-            children:[
-                {
-                    path: 'goodsDetail',
-                    name: 'goodsDetail',
-                    component: goodsDetail 
-                },]
-            
-            
+
         },
          {
             path:'/homeSearch',
@@ -72,19 +65,23 @@ var router = new VueRouter({
     
         {
             path:'/tocart',
+            name:'tocart',
             component:tocart
         },
         {
             path:'/toorder',
+            name:'toorder',
             component:toorder
         },
 
         {
             path:'/eicart',
+            name:'eicart',
             component:eicart
         },
         {
             path:'/eiorder',
+             name:'eiorder',
             component:eiorder
         },
         
