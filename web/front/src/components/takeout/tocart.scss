@@ -1,0 +1,113 @@
+body,html{
+    height: 100%;
+}
+#app{
+   .tocart{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+
+   }
+    
+    
+     .container{
+        height:13.467rem;
+        overflow-y: auto;
+        flex:10;
+        background: #F2F2F2;
+     }   
+    .my{
+            margin-top:0.24rem;
+            font-size:0.373rem;
+            height:1.067rem;
+            line-height: 1.067rem;
+            background: #F2F2F2;
+            color:#3A3A3A;
+            border:1px solid #C6C6C6;
+
+
+    }
+    .goodslist{
+       // height:1.813rem;
+       background: #fff;
+       padding:0 0.267rem;
+
+       .goods{
+           // position:relative;
+           flex:1;
+           display:flex;
+           justify-content:space-between;
+           border-bottom:1px solid #C6C6C6;
+           height: 1.813rem;
+           padding:0.267rem 0;
+           background: #fff;
+              img {
+                width: 1.333rem;
+                height: 1.333rem;
+                
+           }
+           .detail{
+             
+              font-size:0.373rem;
+              
+              span{
+                display:block;
+                line-height:0.72rem;
+              }
+
+           }
+           .modified{
+              // position:absolute;
+              right:0;
+              top:0;
+              // color:#fff;
+              i{
+                 font-size:0.72rem;
+  
+              }
+              .qty{
+                font-size:0.773rem;
+                width:1.333rem;
+                display:inline-block;
+                text-align:center;
+                border:1px solid #ccc;
+                // height:
+              }
+           }
+           
+           .people{
+               font-size:0.4rem;
+               line-height: 1.813rem;
+           } 
+       }
+      
+    }
+    .buy{
+        z-index:10;
+        display:flex;
+        // flex:1;
+        position:fixed;
+        width: 100%;
+        bottom:1.306667rem;
+        font-size:0.453rem;
+        justify-content:space-between;
+        height: 1.333rem;
+        color:#fff;
+        line-height:1.333rem;
+       .sum{
+         // font-size:26px;
+         padding-left:0.267rem;
+         flex:3;
+         background: #3A424F;
+         
+       }
+       .buybtn{
+         // padding-right:0.56rem;
+         text-align:center;
+         flex:1;
+         color:#fff;
+         background: #FE4902;
+       }
+    }
+    
+}

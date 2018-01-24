@@ -1,14 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-// 这里引入各个组件
-
 
 
 import homeComponent from '../components/home/home.vue';// 首页
 import footerComponent from '../components/footer/footer.vue';// 底部
 import homeSearch from '../components/homeSearch/homeSearch.vue';// 搜索页面
 import goodsDetail from '../components/goodsDetail/goodsDetail.vue';// 详情
+
+import tocart from '../components/takeout/tocart.vue';
+import toorder from '../components/takeout/toorder.vue';
+import eicart from '../components/eatin/eicart.vue';
+import eiorder from '../components/eatin/eiorder.vue';
+
 
 
 import classify from '../components/classify/classify.vue';
@@ -26,12 +30,16 @@ import y_addressComponent from '../components/y_address/y_address.vue'
 import y_editAddressComponent from '../components/y_edit_address/y_edit_address.vue'
 
 
+
+
+
 Vue.use(VueRouter);
 var router = new VueRouter({
     mode: 'history',
     // 这里配置路由
     routes:[
         {
+
 
             path:'/classify', component: classify
             // component:loginComponent
@@ -42,6 +50,7 @@ var router = new VueRouter({
         },{
 
             path:'/',
+
             name:'home',
             component:homeComponent,
             children:[
@@ -49,20 +58,32 @@ var router = new VueRouter({
                     path: 'indexDetail',
                     name: 'indexDetail',
                     component: goodsDetail 
-                },]
+                },
+            ]
         },
          {
             path:'/homeSearch',
             name:'homeSearch',
-            component:homeSearch,
-            children:[
-                {
-                    path: 'goodsDetail',
-                    name: 'goodsDetail',
-                    component: goodsDetail 
-                },]
+            component:homeSearch  
         },
-			{
+        {
+            path:'/tocart',
+            component:tocart
+        },
+        {
+            path:'/toorder',
+            component:toorder
+        },
+
+        {
+            path:'/eicart',
+            component:eicart
+        },
+        {
+            path:'/eiorder',
+            component:eiorder
+        },{
+
             path:'/mine',
             name:'mine',
             component:y_mineComponent
