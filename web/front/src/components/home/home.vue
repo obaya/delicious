@@ -123,7 +123,7 @@
               user_id:this.user_id,
             },
           }).then(function(res){
-            console.log('加入购物车成功')
+            alert('加入购物车成功')
           })
         }
       },

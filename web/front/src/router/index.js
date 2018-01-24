@@ -16,10 +16,6 @@ import eiorder from '../components/eatin/eiorder.vue';
 
 
 
-import classify from '../components/classify/classify.vue';
-import comment from '../components/comment/comment.vue';
-
-
 
 
 
@@ -29,6 +25,18 @@ import y_evaluateComponent from '../components/y_evaluate/y_evaluate.vue'
 import y_starComponent from '../components/y_star/y_star.vue'
 import y_addressComponent from '../components/y_address/y_address.vue'
 import y_editAddressComponent from '../components/y_edit_address/y_edit_address.vue'
+
+import zhou from '../components/classify/zhou.vue';
+import snack from '../components/classify/snack.vue';
+import Package from '../components/classify/Package.vue';
+import noodle from '../components/classify/noodle.vue';
+import juice from '../components/classify/juice.vue';
+import greens from '../components/classify/greens.vue';
+
+import classifyComponent from '../components/classify/classify.vue';
+
+import comment from '../components/comment/comment.vue';
+
 
 
 
@@ -41,8 +49,35 @@ var router = new VueRouter({
 
             path:'/classify',
             name:classify,
-            component: classify
-            // component:loginComponent
+            component: classify,
+            children:[
+                { 
+                    path:'/zhou',
+                    name:'zhou',
+                    component:zhou
+                },{ 
+                    path:'/snack',
+                    name:'snack',
+                    component:snack
+                },{ 
+                    path:'/Package',
+                    name:'Package',
+                    component:Package
+                },{ 
+                    path:'/noodle',
+                    name:'noodle',
+                    component:noodle
+                },{ 
+                    path:'/juice',
+                    name:'juice',
+                    component:juice
+                },{ 
+                    path:'/greens',
+                    name:'greens',
+                    component:greens
+                },
+            ]
+            
         },
         {
             path:'/comment', 
@@ -60,7 +95,7 @@ var router = new VueRouter({
             path:'/homeSearch',
             name:'homeSearch',
             component:homeSearch,
-           
+       
         },
     
         {
