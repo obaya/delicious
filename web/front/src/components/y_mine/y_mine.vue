@@ -45,9 +45,9 @@
     export default{
         data(){
             return {
-                cardNum:'98767',
-                phoneNum:'1371012345',
-                user_id:6
+                cardNum:'',
+                phoneNum:'',
+                user_id:1
             }
         },
         methods:{

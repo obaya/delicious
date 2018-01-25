@@ -6,8 +6,8 @@
             <i class="el-icon-plus" @click="addAddress"></i>
         </div>
         <div class="a-address-info">
-            <ul>
-                <li class="a-address-lists">
+            <ul v-if="phoneNum == ''? false : true">
+                <li class="a-address-lists" >
                     <div><i class="el-icon-circle-check"></i></div>
                     <div class="a-info">
                         <div class="a-info-top">

@@ -71,7 +71,7 @@
             },
             // 通过user_id将该用户的订单菜品渲染在页面，再将user_id，goodsId，菜品，评论写入数据库
             saveEva(){
-                if(this.grade.length < this.orderList.length){
+                if(this.grade.length < this.orderList.length || this.comment.length  < this.orderList.length){
                     this.open1()
                 }else{
                     for(var i=0;i<this.orderList.length;i++){

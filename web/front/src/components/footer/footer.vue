@@ -32,7 +32,7 @@
              },
              food: function(){
                 // this.$router.push({name:'eicart'});
-                this.$router.push({name:'classify'});
+                this.$router.push('classify');
                
              },
              cart:function(){

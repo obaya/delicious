@@ -57,7 +57,7 @@
                 </span>
             </div>
             <div class="opaytype">
-                <div>支付类型：现金(<span  class="red" >已支付</span>)</div>
+                <div>支付状态：(<span  class="red" >{{hadPay}}</span>)</div>
             </div>
         </div>
 
@@ -83,7 +83,8 @@
                 totalQty:0,
                 totalAmount:0,
                 phoneNum:'',
-                user_id:''
+                user_id:'',
+                hadPay:'待支付'
 
             }
         },
@@ -128,6 +129,9 @@
                 for(var i=0;i<self.orderList.length;i++){
                     self.totalQty += (self.orderList[i].qty)*1;
                     self.totalAmount += self.orderList[i].newPrice*self.orderList[i].qty;
+                }
+                if(self.orderState == 2){
+                    self.hadPay = "已支付"
                 }
             });
         }
