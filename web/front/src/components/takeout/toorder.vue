@@ -34,6 +34,7 @@
         data(){
             return {
                  phoneNumber:'',
+                 user_id:''
             }
         },
         methods:{
@@ -42,11 +43,17 @@
             }
            
         },
+         created: function () {
+            // console.log(this.Cookie);
+              this.user_id=this.Cookie.getCookie('user_id');
+              console.log(this.user_id);
+
+        },
         mounted:function(){
             
             var res = baseUrl.get({
               url : "/createOrder",
-              params : {user_id:2},
+              params : {user_id:this.user_id},
             }).then(function(res){
               // 这里获取返回的结果
                 // console.log(res.data)
