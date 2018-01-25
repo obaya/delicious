@@ -33,7 +33,7 @@ import noodle from '../components/classify/noodle.vue';
 import juice from '../components/classify/juice.vue';
 import greens from '../components/classify/greens.vue';
 
-import classifyComponent from '../components/classify/classify.vue';
+import classify from '../components/classify/classify.vue';
 
 import comment from '../components/comment/comment.vue';
 

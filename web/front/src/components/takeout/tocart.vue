@@ -49,8 +49,8 @@
                money:0,
                goodsdata:[],
                qty:0,
-               array:[]
-               
+               array:[],
+               user_id:'',
                
             }
         },
@@ -58,10 +58,10 @@
         mounted:function(){
             var res = baseUrl.get({
               url : "/getUserCart",
-              params : {user_id:5},
+              params : {user_id:this.user_id},
             }).then(res=>{
               // 这里获取返回的结果
-                    console.log(res.data);
+                    console.log(res);
                     this.goodsdata=res.data;
                     res.data.forEach((item,index)=>{
                         this.total+=item.newPrice*item.qty;
@@ -70,6 +70,12 @@
                     
             })
   
+        },
+         created: function () {
+            // console.log(this.Cookie);
+              this.user_id=this.Cookie.getCookie('user_id');
+              // console.log(this.user_id);
+
         },
         methods:{
             
@@ -101,7 +107,7 @@
                   params:{
                     id:this.goodsdata[index].id,
                     goods_id:this.goodsdata[index].goods_id,
-                    user_id:5,
+                    user_id:this.user_id,
                     qty:this.goodsdata[index].qty
                   }
                }).then(res=>{
@@ -112,7 +118,7 @@
                baseUrl.get({
                   url:'/createOrder',
                   params:{
-                      user_id:1,
+                      user_id:this.user_id,
                       tableNum:'',
                       total:this.total,
                       type:1,
@@ -121,8 +127,10 @@
                }).then(res=>{
                     this.goodsdata=[];
                })
-          }
+          },
 
+            
+        
             
         }
 }

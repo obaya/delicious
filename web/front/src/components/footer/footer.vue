@@ -32,7 +32,7 @@
              },
              food: function(){
                 // this.$router.push({name:'eicart'});
-                this.$router.push({name:'classify'});
+                this.$router.push('classify');
                
              },
              cart:function(){
@@ -48,14 +48,14 @@
        },
        mounted(){
           var cookie = document.cookie;
-            console.log(cookie)//得到当前页面下的所有cookie
-            cookie = cookie.split('; ');
-            cookie.forEach(function(item){
-              var arr = item.split('=');
-              if(arr[1] === 'wai'){
-                  this.Tfood = arr[1];
-                  console.log(this.Tfood);
-              }
+          console.log(cookie)//得到当前页面下的所有cookie
+          cookie = cookie.split('; ');
+          cookie.forEach(function(item){
+            var arr = item.split('=');
+            if(arr[1] === 'wai'){
+                this.Tfood = arr[1];
+                console.log(this.Tfood);
+            }
           }.bind(this))
        }
 

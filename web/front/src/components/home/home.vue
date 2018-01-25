@@ -38,8 +38,8 @@
            <p>起价送：￥30元送餐</p>
          </section> -->
          <section class="Order">
-           <div class="Take-out " ><img src="../../assets/1.jpg" alt="" /></div>
-           <div class="Eat "><img src="../../assets/2.jpg" alt="" @click="Take_out"/></div>
+           <div class=" Eat" ><img src="../../assets/1.jpg" alt="" @click="Eat"/></div>
+           <div class=" Take-out"><img src="../../assets/2.jpg" alt="" @click="Take_out"/></div>
          </section>
        </section>
        <!-- 特价 -->
@@ -107,15 +107,12 @@
          this.show=false;
       },
       search: function(){
-   
         this.$router.push({name:'homeSearch'});
       },
       add(e){
         if(e.target.tagName == 'I'){
           var goods_id = e.target.parentNode.parentNode.parentNode.children[0].id;
-          // var type = e.target.id;
-          // console.log(goods_id);
-          // console.log(this.user_id);
+
           baseUrl.get({
             url : "/insertCart" ,
             params : {
@@ -131,11 +128,14 @@
          if(e.target.nodeName == 'IMG'){
             this.gid = e.target.id;
             this.show = true;
-            // this.xs = true;
+        
          }
       },
       Take_out:function(){
         document.cookie = 'Take_out =' + 'wai' ;
+      },
+      Eat:function(){
+          document.cookie = 'Take_out =' + '' ;
       }
 
 
@@ -156,51 +156,45 @@
     //   }
     // },
     mounted(){
-     
-      //生成用户名 
       var CrDate = '';
-
-      // 随机6位数  
-      var Atanisi = Math.floor(Math.random() * 9999);  
-
-      //时间  
-      var myDate = new Date();  
-      // var tY = myDate.getFullYear();   //年  
-      // var tM = myDate.getMonth()+1;    //月  
-      // if (tM >= 1 && tM <= 9) {  
-      //   tM = "0" + tM;  
-      // }  
-      // var tD = myDate.getDate();         //日  
-      // if (tD >= 1 && tD <= 9) {  
-      //   tD = "0" + tD;  
-      // }  
-      // var tH = myDate.getHours();         //时  
-      // if (tH >= 1 && tH <= 9) {  
-      //   tH = "0" + tH;  
-      // }  
-      var tm = myDate.getMinutes();         //分  
-       if (tm >= 1 && tm <= 9) {  
-         tm = "0" + tm;  
-      }  
-      var tS = myDate.getSeconds();          //秒  
-       if (tS >= 1 && tS <= 9) {  
-          tS = "0" + tS;  
-      }  
-      //时间  
-      CrDate =tm+ tS+Atanisi; // 整合
-      // console.log(CrDate)
-      var Num = '';
-      baseUrl.get({
-         url : "/register" ,
-         params : {type:0,cardNum:CrDate}
-      }).then(function(res){
-        console.log(res)
-        Num = res.data.result.insertId;
-        // console.log(Num)
-        this.user_id = Num;
-        // console.log(this.user_id )
-        document.cookie = 'user_id =' + Num ;
+      var cookie = document.cookie;
+      cookie = cookie.split('; ');
+      cookie.forEach(function(item){
+        var arr = item.split('=');
+        if(arr[0] === 'user_id'){
+            this.user_id = arr[1];
+            console.log(this.Tfood);
+        }else{
+          var Atanisi = Math.floor(Math.random() * 9999);  
+          var myDate = new Date();  
+          var tm = myDate.getMinutes();         //分  
+           if (tm >= 1 && tm <= 9) {  
+             tm = "0" + tm;  
+          }  
+          var tS = myDate.getSeconds();          //秒  
+           if (tS >= 1 && tS <= 9) {  
+              tS = "0" + tS;  
+          }  
+          //时间  
+          CrDate =tm+ tS+Atanisi;
+          // console.log(CrDate)
+          var Num = '';
+          baseUrl.get({
+             url : "/register" ,
+             params : {type:0,cardNum:CrDate}
+          }).then(function(res){
+            console.log(res)
+            Num = res.data.result.insertId;
+            // console.log(Num)
+            this.user_id = Num;
+            // console.log(this.user_id )
+            document.cookie = 'user_id =' + Num ;
+          }.bind(this));
+        }
       }.bind(this))
+      //生成用户名 
+      
+    
 
       //轮播图
       baseUrl.get({
@@ -225,11 +219,7 @@
                   });
               }
           }
-          //获取id
-          function id(obj) {
-              return document.getElementById(obj);
-          }
-          //删除class类名
+               //删除class类名
           function removeClass(obj, sClass) { 
               var aClass = obj.className.split(' ');
               if (!obj.className) return;
@@ -314,8 +304,8 @@
             //获取节点
             getDom(){
               // 轮播
-              this.oTab = id("tabPic");
-              this.oList = id("picList");
+              this.oTab = document.getElementById("tabPic");
+              this.oList = document.getElementById("picList");
               this.aNav = this.oTab.getElementsByTagName("nav")[0].children;
             }, 
 
@@ -353,7 +343,6 @@
               let recommenddata= [];
               let characteristic = [];
               let res = _res.data.forEach((item,idx)=>{
-                // console.log(item.type)
                 if (item.type===0) {
                   characteristic.push(item);
                   this.goods = characteristic.slice(0, 4);
