@@ -1,10 +1,10 @@
 <template>
 
 	<div id="app">
-		<img src="../../assets/head.png" width="100%"/>
+		<img src="../../assets/head2.png" alt="" width="100%" height="165px" />
 		<ul id="canteen">
-			<li class="mess">食堂</li>
-			<li>评论</li>
+			<li class="mess" v-text="classes"></li>
+			<li style="color:#333;" @click="toComment">评论</li>
 		</ul>
 		<div id="mian">
 			<div id="class">
@@ -50,27 +50,30 @@
 
 			</div>
 		</div>
+		<!--、、、、、、、、、、、、、、、、、、、底部、、、、、、、、、、、、、、、、-->
 		<div id="foot">
 			<div class="big" @click='changeCartKey()'><div class="min"><img src="../../assets/car.png" alt="" id="car"/></div></div>
-			<div class="footQty">共<span class="footQ">1</span>份</div>
-			<div class="total">价格：￥<span>10</span></div>
-			<div class="OK">选好了</div>
+			<div class="footQty">共<span class="footQ">{{$store.state.qty}}</span>份</div>
+			<div class="total">价格：￥<span>{{$store.state.carTotal}}</span></div>
+			<div class="OK" @click="addcart">选好了</div>
 		</div>
-		<div class="car" v-if='cartKey'>
+		
+		
+
+		<!-- <div class="car" v-if='cartKey'>
 			<div class="carlist">
 				<div class="carlistT">
 					<span class="carlistT1">购物车</span>
-					<span class="carlistT2">清空</span>
-					
+					<span class="carlistT2" @click="clear">清空</span>
 				</div>
 				<div class="carlistB">
 					<ul>
-						<li>
-							<span class="list">冰糖香蕉水</span>
-							<span class="cPrice">￥2</span>
+						<li v-for="(item,idx) in $store.state.carAllGood.data" v-if="item.qty > 0">
+							<span class="list">{{item.title}}</span>
+							<span class="cPrice">￥{{$store.state.carTotal}}</span>
 							<div class="count">
 								<div class="reduce2"><img src="../../assets/reduce.png"/></div>
-								<div id="qty2">1</div>
+								<div id="qty2">{{item.qty}}</div>
 								<div class="add2"><img src="../../assets/add.png" alt="" /></div>
 							</div>
 						</li>
@@ -78,11 +81,35 @@
 					</ul>
 				</div>
 			</div>
+		</div> -->
+		
+
+		<div class="car" v-if='cartKey'>
+			<div class="carlist">
+				<div class="carlistT">
+					<span class="carlistT1">购物车</span>
+					<span class="carlistT2" @click="clear">清空</span>
+				</div>
+				<div class="carlistB">
+					<ul>
+						<li v-for="(item,idx) in $store.state.carAllGood.data" v-if="item.qty > 0">
+							<span class="list">{{item.title}}</span>
+							<span class="cPrice">￥{{item.newPrice*item.qty}}</span>
+							<div class="count">
+								<div class="reduce2" @click="reduce(item,idx)"><img src="../../assets/reduce.png"/></div>
+								<div id="qty2">{{item.qty}}</div>
+								<div class="add2" @click="add(item,idx)"><img src="../../assets/add.png" alt="" /></div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
 		</div>
+     <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
 		
-		
+	 <footermodel color="classify"></footermodel>
 	</div>
-	
 </template>
 
 <script>
@@ -99,13 +126,8 @@
 	import cold from './cold.vue'
 	import greens from './greens.vue';
 	import jquery from './jquery-3.2.1.js'
-	
-//	jquery(function(){
-//		$('.min').on('click',function(){
-//			
-//		})
-//	});
-	
+	import footermodel from '../../components/footer/footer.vue';
+ 	import goodsDetailmodel from '../../components/goodsDetail/goodsDetail.vue';
 	
 	
 	export default{
@@ -120,27 +142,127 @@
 				juice:[],
 				hot:[],
 				noodle:[],
+				carList:[],
+				classes:'',
+				user_id:'',
 				classifyList:["热销榜","单人特色套餐","特色粥品","精选热菜","爽口凉菜","小吃主食","果拼果汁","面类","甜品"],
 				showList:"热销榜",
-				cartKey:false
+				cartKey:false,
+				type:0,
+				show:false,
 			}
 		},
-		components:{Package,zhou,hot,noodle,juice,snack,cold,greens},
+		components:{Package,zhou,hot,noodle,juice,snack,cold,greens,footermodel,goodsDetailmodel},
 		methods:{
+			toComment(){
+				this.$router.push('comment');
+			},
+			a(){
+		         this.show=false;
+		      },
+		      search_goodsdetail: function(){
+		   
+		        this.show = true;
+		      },
 			refresh: function(_item){
-				console.log(_item);
 				this.showList = _item;
 				
 			},
+			addcart(){
+				if(this.classes == '外卖'){
+				  this.$router.push({name:'tocart'});
+				}else{
+				  this.$router.push({name:'eicart'});
+				}
+			},
+			add:function(item,idx){
+				var goodId = item.goods_id;
+				this.reduceState = true;
+				baseUrl.get({
+                 	url:'/insertCart',
+                 	params:{
+                 		goods_id:goodId,
+                    	user_id:this.$store.state.user_id,
+
+                    	qty:1,
+                    	type:this.$store.state.type,
+                 	}
+                }).then(res=>{
+
+                	this.$store.state.carAllGood.data[idx].qty++;
+                  	var price = item.newPrice;
+	               	this.$store.commit('carTotal',price);
+	               	this.$store.commit('initCar');	
+               	})
+				this.$store.commit('initCar');
+			},
+			reduce:function(item){
+				var goodId = item.goods_id;
+				var num = 0;
+				var currentQty = 0;
+				for(var i=0 ; i< this.$store.state.carAllGood.data.length ; i++){
+					if(this.$store.state.carAllGood.data[i].goods_id ==  item.goods_id){
+						this.$store.state.carAllGood.data[i].qty--;
+						num = this.$store.state.carAllGood.data[i].id;
+						currentQty = this.$store.state.carAllGood.data[i].qty;
+					}
+				}
+				if(currentQty>0){
+                    baseUrl.get({
+                    url:'/updateCartQty',
+                    params:{
+                        id:num,
+                        goods_id:goodId,
+                        user_id:this.$store.state.user_id,
+                        qty:currentQty
+                    }
+                }).then(res=>{
+                    var price = _obj.newPrice;
+                    this.$store.commit('jianTotal',price);
+                    this.$store.commit('initCar');
+                })
+            }else{
+                baseUrl.get({
+                    url:'/deleteUserCartGoods',
+                    params:{
+       
+                        goods_id:goodId,
+                        user_id:this.$store.state.user_id,
+
+               
+                    }
+                }).then(res=>{
+                    var price = item.newPrice;
+                    this.$store.commit('jianTotal',price);
+                    this.$store.commit('initCar');
+                })
+            }
+
+				this.$store.commit('initCar');
+			},
+			clear(){
+				this.$store.commit('clearCar')
+			},
 			changeCartKey(){
-				this.cartKey = !this.cartKey; 
+				this.cartKey = !this.cartKey;
+				baseUrl.get({
+                 	url:'/getUserCart',
+                 	params:{
+                    	user_id:this.user_id
+                 	}
+               	}).then(res=>{
+               	});
 			}
 		},
 		beforeMount(){
 			
-			axios.get('http://10.3.136.27:88/getClassifyGoods').then(response => {
+
+
+			baseUrl.get({
+                    url:'/getClassifyGoods',
+
+				}).then(response=>{
 				this.dataset = response.data;
-				console.log(this.dataset.discount);
 				this.dataset.forEach((item)=>{
 					//单人精彩套餐、小吃主食、特色粥品、爽口凉菜、面类、精选热菜、果拼果汁、特色粥品
 					if(item.classify == '单人精彩套餐'){
@@ -159,16 +281,31 @@
 						this.noodle.push(item)
 					}
 				})
-				console.log(this.Packages);
 				for(var item  in this.dataset){
 					if(this.dataset[item].sales>20){
 						this.hot.push(this.dataset[item]);
 					}
 				}
 			}).catch(function(error){
-					console.log(error);
 			})
-		}
+			this.$store.commit('initCar')
+		},
+		mounted(){
+			this.user_id = this.Cookie.getCookie('user_id');
+			// this.$store.commit('user_id',this.user_id)
+			this.$store.commit('a',this.user_id);
+			var cookie = this.Cookie.getCookie('Take_out');
+
+			 if(cookie === 'wai'){
+			 	this.classes = '外卖';
+			 	this.type = 1
+			 }else{
+			 	this.classes = '堂食';
+			 	this.type = 0
+			 }
+			this.$store.commit('b',this.type);
+
+			}
 	}
 </script>
 
@@ -178,7 +315,7 @@
 	*{margin:0;padding:0;}
 	#canteen{width:100%;height:1.09rem;display:flex;border-bottom:0.01rem solid #ccc;}
 	#canteen li{flex:1;font-size:0.4rem;line-height:1.09rem;text-align: center;}
-	#canteen .mess{color:red;}
+	#canteen .mess{color:#409EFF;}
 	#mian{height:11.86rem;width:100%;display: flex;}
 	#class{background:#F4F5F7;height:11.86rem;overflow-x: hidden;}
 	#style{flex:6;background:#F4F5F7;}
@@ -208,14 +345,14 @@
 	#car{position:absolute;left:0.3rem;top:0.3rem;}
 	#foot .footQty{font-size:0.4rem; color:#fff;line-height:1.28rem;margin-left:2.4rem;float: left;}
 	#foot .footQ{margin:0 0.13rem;}
-	#foot .total{font-size:0.4rem; color:#fff;line-height:1.28rem;margin-left:0.66rem;float: left;}
+	#foot .total{font-size:0.4rem; color:#fff;line-height:1.28rem;margin-left:0.4rem;float: left;}
 	#foot .OK{width:2.8rem;height:1.28rem;color:#fff;background:#f60;line-height:1.28rem;text-align: center;float: right;font-size:0.4rem;}
 	.car{width:100%;height:16rem;background-color:rgba(0,0,0,0.2);position:relative;left:0;top:-17.77rem;}
 	.car .carlist{width:100%;height:7.33rem;background:#FFF;position:absolute;left:0;bottom:-0.21rem;}
 	.car .carlist .carlistT{width:100%;height:1.06rem;background: #F4F5F7;font-size:0.37rem;color:#000;line-height: 1.06rem;}
 	.car .carlist .carlistT .carlistT2{float: right;margin-right:0.93rem;color:skyblue;}
 	.car .carlist .carlistT .carlistT1{margin-left:0.93rem;}
-	.car .carlist .carlistB{height:5.33rem;width:100%;}
+	.car .carlist .carlistB{height:5.33rem;width:100%;overflow-x:hidden ;}
 	.car .carlist .carlistB li{height:1.3rem;width:100%;font-size:0.4rem;color:#000;line-height:1.3rem;}
 	.car .carlist .carlistB .cPrice{color:red;}
 	.car .carlist .carlistB .count{width:2.13rem;display:inline-block;float: right;margin-top:0.13rem;margin-top:0.4rem;}

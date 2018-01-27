@@ -46,6 +46,7 @@ var router = new VueRouter({
     // 这里配置路由
     routes:[
         {
+
             path:'/classify',
             name:classify,
             component: classify,

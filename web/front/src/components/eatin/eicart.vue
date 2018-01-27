@@ -1,38 +1,39 @@
 <template>
-    <div>
+    <div class="eicart">
         <eheader></eheader>
         <div class="container">
           <div class="my">我的</div>
           <ul class="goodslist">
-                <li v-for="" class="goods">
-                    <img src="http://fuss10.elemecdn.com/c/cd/c12745ed8a5171e13b427dbc39401jpeg.jpeg?imageView2/1/w/114/h/114" alt="" />
+                <li v-for="(obj,index) in goodsdata" class="goods">
+                    <img :src="obj.imgUrl" alt="" />
                     <div class="detail">
-                        <span>清汤面</span>
-                        <span>￥5.00</span>
+                        <span>{{obj.title}}</span>
+                        <span>￥{{obj.newPrice}}</span>
                     </div>
-                    <!-- <div class="modified">
-                        <i class="el-icon-remove" @click="remove"></i>
-                        <span>{{qty}}</span>
-                        <i class="el-icon-circle-plus" @click="plus"></i>
-                    </div> -->
-                     <el-input-number v-model="qty" @change="handleChange" :min="0" :max="99" label="描述文字"></el-input-number>
+                    <div class="modified">
+                            <i class="el-icon-remove" @click="remove(obj.qty,obj.newPrice,index)"></i>
+                            <span class="qty">{{obj.qty}}</span>
+                            <i class="el-icon-circle-plus" @click="plus(obj.qty,obj.newPrice,index)"></i>
+                    </div>
+                     <!-- <el-input-number v-model="item.qty" @change="handleChange" :min="0" :max="99" label="描述文字"></el-input-number> -->
                 </li>
 
           </ul>
           
         </div>
         <div class="buy">
-            <div class="sum">总计￥<span>{{money}}</span></div>
-            <!-- <div  @click="subbtn" class="buybtn">提交订单</div> -->
-            <router-link :to="{path:'/eiorder',query:{money:money}}" class="buybtn">提交订单</router-link>
+            <div class="sum">总计￥<span>{{total.toFixed(2)}}</span></div>
+            <div  @click="suborder" class="buybtn" v-show="show">提交订单</div>
+           <!--  <router-link :to="{path:'/eiorder',query:{}}" class="buybtn">提交订单</router-link> -->
          </div>
-        <efooter></efooter>
+        <efooter color="cart"></efooter>
     </div>
 </template>
 <script type="text/javascript">
     import  './eicart.scss';
     import eheader from '../header/eheader.vue';
-    import efooter from '../footer/footer.vue'
+    import efooter from '../footer/footer.vue';
+    import baseUrl from '../../utils/baseurl.js';
     export default{
         components:{
             eheader,
@@ -40,21 +41,99 @@
         },
         data(){
             return {
-                qty:0
+                qty:0,
+                goodsdata:[],
+                total:0,
+                user_id:'',
+                show:false
             }
             
         },
-        methods:{
-        remove(){
-         if(this.qty>0){
-            this.qty-=1;
-         }
-          
+         created: function () {
+              this.user_id=this.Cookie.getCookie('user_id');
+
         },
-        plus(){
-            this.qty+=1;
+        mounted(){
+             baseUrl.get({
+                  url:'/getUserCart',
+                  params:{
+                     user_id:this.user_id,
+                     type:0,
+
+                  }
+             }).then(res=>{
+                if(res.data.length != 0){
+                  this.show = true
+                 this.goodsdata=res.data;
+
+                 res.data.forEach((item,index)=>{
+                     this.total+=item.newPrice*item.qty;
+                 })
+                  
+                }
+             })
+        },
+        methods:{
+            remove(qty,price,index){
+               this.goodsdata[index].qty--;
+               if(this.goodsdata[index].qty<=0){
+                   // this.goodsdata[index].qty=0;
+                   
+
+                   baseUrl.get({
+                     url:'/deleteUserCartGoods',
+                     params:{
+                        user_id:this.user_id,
+                        goods_id:this.goodsdata[index].goods_id
+                     }
+                   }).then(res=>{
+                      this.goodsdata.splice(index,1);
+                   })
+               }
+               this.total=0;
+               this.goodsdata.forEach((item,index)=>{
+                        this.total+=item.newPrice*item.qty;
+                    });
+                this.updatecart(index);
+          },
+          plus(qty,price,index){
+              
+              this.goodsdata[index].qty++;
+              this.total=0;
+               this.goodsdata.forEach((item,index)=>{
+                        this.total+=item.newPrice*item.qty;
+                    });
+               this.updatecart(index);
+
+          },
+          updatecart(index){
+              baseUrl.get({
+                  url:'/updateCartQty',
+                  params:{
+                    id:this.goodsdata[index].id,
+                    goods_id:this.goodsdata[index].goods_id,
+                    user_id:this.user_id,
+                    qty:this.goodsdata[index].qty
+                  }
+               }).then(res=>{
+               })
+          },
+          suborder(){
+               baseUrl.get({
+                  url:'/createOrder',
+                  params:{
+                      user_id:this.user_id,
+                      tableNum:'',
+                      total:this.total,
+                      type:1,
+                      state:0
+                  }
+               }).then(res=>{
+                    this.goodsdata=[];
+                    this.$router.push({path:'/eiorder',query:{user_id:this.user_id}});
+               })
+          }
         }
-    }
     }
 
 </script>

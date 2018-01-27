@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import qs from 'qs';
-var baseUrl = 'http://10.3.136.27:88';
+var baseUrl = 'http://127.0.0.1:88';
 var fliterUrl = function (url) {
     if (url.startsWith('http')) {
         return url;

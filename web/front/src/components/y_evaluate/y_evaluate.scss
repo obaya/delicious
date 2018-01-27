@@ -16,6 +16,7 @@
     }
     ul.eva-lists{
         flex:1;
+        overflow-y: auto;        
         li.eva-list{
             background-color: #fef;
             display:flex;

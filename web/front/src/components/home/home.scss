@@ -89,6 +89,11 @@
           font-size:0.266667rem;
           padding-left: 0.4rem;
       }
+      .p_header_conntent{
+        position:fixed;
+        top:0;
+        z-index:10000;
+       }
   }
   #homeinput{
       margin-left: 0.4rem;
@@ -122,6 +127,7 @@
     height:5.333333rem;
     overflow:hidden;
     position:relative;
+    z-index:2;
    }
    #picList{
     overflow:hidden;
@@ -311,10 +317,19 @@
     padding:0.133333rem;
   }
   .p_recommend{
-    margin-bottom:2rem;
+    margin-bottom:1rem;
   }
- 
+
 
 
 
 }
+#homefoot{
+   // height: 1.306667rem;
+   position:fixed;
+   bottom:0;
+}
+ #p_main{
+   font-size:0.346667rem;
+   height:16.81rem;
+   overflow-x: hidden;}

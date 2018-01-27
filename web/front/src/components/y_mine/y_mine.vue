@@ -34,7 +34,7 @@
             </ul>
         </div>
         <div class="m-bottom">
-            <foooter></foooter>
+            <foooter color="mine"></foooter>
         </div>
     </div>
 </template>
@@ -47,7 +47,7 @@
             return {
                 cardNum:'',
                 phoneNum:'',
-                user_id:1
+                user_id:''
             }
         },
         methods:{
@@ -88,9 +88,10 @@
             },
         },
         mounted(){
+            this.user_id=this.Cookie.getCookie('user_id')
+            this.cardNum=this.Cookie.getCookie('cardNum')
             var self = this;
             localStorage.setItem('user_id',this.user_id)
-
             // 发请求获取手机号卡号写入头部
             // 拿取存在cookie中的userid
             // this.user_id=document.cookie.split('=')[1]
@@ -101,8 +102,7 @@
 
                 
             }).then(function(res){
-                self.cardNum = res.data[0].cardNum
-                self.phoneNum = res.data[0].phoneNum
+                self.phoneNum = res.data[res.data.length-1].phoneNum
             })
         },
         components:{

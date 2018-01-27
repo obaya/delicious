@@ -61,6 +61,7 @@
     }
     .o-list{
         flex:1;
+        overflow:hidden;
         background-color: #EEEEEE;
         display:flex;
         flex-direction:column;

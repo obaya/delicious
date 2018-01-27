@@ -1,9 +1,9 @@
 <template>
-  <el-container id="p_container">
+  <el-container id="p_container" class='homeSearch_detail'>
      <goodsDetailmodel v-if="show" :gid="gid"  @increment="a"></goodsDetailmodel>
     <el-header id="p_search_header">
-      <div class="header_icon"><i class="el-icon-back" @click='back' ></i>|&nbsp;搜索</div>
-      <div class="p_header_conntent" @click="search">  
+      <div class="header_icon"><i class="el-icon-back" @click='backs' ></i>|&nbsp;搜索</div>
+      <div @click="search">  
         <input id="homesearch" placeholder="请输入内容"  clearable>
         </input>
        <el-button type="primary" icon="el-icon-search" class="p_search_btn" @click=" search_goodsdetail"></el-button>
@@ -36,14 +36,13 @@
        
     }, 
     methods: {
-      back:function(){
+      backs:function(){
         this.$router.push({name:'home'})
       },
       search(){
         let that = this;
         let search_input = $('#homesearch')[0];
         search_input.oninput = ()=>{
-          console.log(666);
           let keyword = search_input.value;
           // console.log(keyword);
           baseUrl.get({

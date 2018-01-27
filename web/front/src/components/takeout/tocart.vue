@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="tocart">
         <eheader></eheader>
         <div class="container">
           <div class="my">我的</div>
@@ -25,11 +25,11 @@
           
         </div>
         <div class="buy">
-            <div class="sum">总计￥<span>{{total}}</span></div>
-            <!-- <div  class="buybtn" @click="suborder">提交订单</div> -->
-            <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @click="suborder">提交订单</router-link>
+            <div class="sum">总计￥<span>{{total.toFixed(2)}}</span></div>
+            <div  class="buybtn" @click="suborder" v-show="show">提交订单</div>
+            <!-- <router-link :to="{path:'/toorder',query:{}}" class="buybtn" @c lick="suborder">提交订单</router-link> -->
         </div>
-        <efooter></efooter>
+        <efooter color="cart"></efooter>
     </div>
 </template>
 <script type="text/javascript">
@@ -37,7 +37,6 @@
     import eheader from '../header/eheader.vue';
     import efooter from '../footer/footer.vue';
     import baseUrl from '../../utils/baseurl.js';
-    
     export default{
         components:{
             eheader,
@@ -48,42 +47,53 @@
                total:0,
                money:0,
                goodsdata:[],
-               qty:0,
                array:[],
                user_id:'',
+               show:false
                
             }
-        },
-
-        mounted:function(){
-            var res = baseUrl.get({
-              url : "/getUserCart",
-              params : {user_id:this.user_id},
-            }).then(res=>{
-              // 这里获取返回的结果
-                    console.log(res);
-                    this.goodsdata=res.data;
-                    res.data.forEach((item,index)=>{
-                        this.total+=item.newPrice*item.qty;
-                    });
-                    console.log(res.data);
-                    
-            })
-  
         },
          created: function () {
             // console.log(this.Cookie);
               this.user_id=this.Cookie.getCookie('user_id');
-              // console.log(this.user_id);
 
+        },
+        mounted:function(){
+            var res = baseUrl.get({
+              url : "/getUserCart",
+              params : {user_id:this.user_id,type:1},
+            }).then(res=>{
+              // 这里获取返回的结果
+              if(res.data.length > 0){
+                  this.show = true
+                    this.goodsdata=res.data;
+                    res.data.forEach((item,index)=>{
+                        this.total+=item.newPrice*item.qty;
+                    });
+                }    
+            })
+  
         },
         methods:{
             
           remove(qty,price,index){
-               console.log(qty,price,index);
+
                this.goodsdata[index].qty--;
-               if(qty<=0){
-                   this.goodsdata[index].qty=0;
+               // console.log(this.goodsdata[index]);
+               if(this.goodsdata[index].qty<=0){
+                   // this.goodsdata[index].qty=0;
+                   
+
+                   baseUrl.get({
+                     url:'/deleteUserCartGoods',
+                     params:{
+                        user_id:this.user_id,
+                        goods_id:this.goodsdata[index].goods_id
+                     }
+                   }).then(res=>{
+                      // console.log(res);
+                      this.goodsdata.splice(index,1);
+                   })
                }
                this.total=0;
                this.goodsdata.forEach((item,index)=>{
@@ -111,7 +121,6 @@
                     qty:this.goodsdata[index].qty
                   }
                }).then(res=>{
-                   console.log('ok');
                })
           },
           suborder(){
@@ -122,15 +131,15 @@
                       tableNum:'',
                       total:this.total,
                       type:1,
-                      state:0
+                      state:2
                   }
                }).then(res=>{
                     this.goodsdata=[];
+                    this.$router.push({path:'/toorder',query:{user_id:this.user_id}});
+                    // console.log(res);
                })
-          },
+          }
 
-            
-        
             
         }
 }

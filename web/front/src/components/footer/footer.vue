@@ -4,10 +4,10 @@
 
       <footer id="p_footer">
           <el-row :gutter="20">
-            <el-col :span="6" ><div class="grid-content bg-purple" @click = "index"><i class="el-icon-goods"></i>首页</div></el-col>
-            <el-col :span="6" ><div class="grid-content bg-purple" @click = "food"><i class="el-icon-edit-outline"></i>点餐</div></el-col>
-            <el-col :span="6"><div class="grid-content bg-purple" @click = "cart"><i class="el-icon-edit"></i>购物车</div></el-col>
-            <el-col :span="6"><div class="grid-content bg-purple" @click = "mine"><i class="el-icon-goods"></i>我的</div></el-col>
+            <el-col :span="6" ><div class="grid-content bg-purple _index"  @click = "index"><i class="el-icon-goods"></i>首页</div></el-col>
+            <el-col :span="6" ><div class="grid-content bg-purple classify" @click = "food"><i class="el-icon-edit-outline"></i>点餐</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple cart" @click = "cart"><i class="el-icon-edit"></i>购物车</div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple mine" @click = "mine"><i class="el-icon-goods"></i>我的</div></el-col>
           </el-row>
       </footer>
 
@@ -24,14 +24,14 @@
             Tfood:'',
          }  
        },
-       props:['gid'],
+       props:['gid','color'],
        methods:{
+
             index: function(){
               
                this.$router.push({name:'home'});
              },
              food: function(){
-                // this.$router.push({name:'eicart'});
                 this.$router.push('classify');
                
              },
@@ -47,18 +47,32 @@
              }
        },
        mounted(){
-          var cookie = document.cookie;
-          console.log(cookie)//得到当前页面下的所有cookie
-          cookie = cookie.split('; ');
-          cookie.forEach(function(item){
-            var arr = item.split('=');
-            if(arr[1] === 'wai'){
-                this.Tfood = arr[1];
-                console.log(this.Tfood);
-            }
-          }.bind(this))
+         if(this.color=='index'){
+            var infoot = document.getElementsByClassName('_index')[0];
+            infoot.style.color='#409EFF';
+         }else if(this.color=='mine'){
+            var mine = document.getElementsByClassName('mine')[0];
+            
+            mine.style.color='#409EFF';
+         }else if(this.color=='cart'){
+            var mine = document.getElementsByClassName('cart')[0];
+            
+            mine.style.color='#409EFF';
+         }else if(this.color=='classify'){
+            var mine = document.getElementsByClassName('classify')[0];
+            
+            mine.style.color='#409EFF';
+         }
+
+
+
+
+         var cookie = this.Cookie.getCookie('Take_out')
+          if(cookie === 'wai'){
+              this.Tfood = cookie;
+          }
+
        }
 
     }
 </script>
-

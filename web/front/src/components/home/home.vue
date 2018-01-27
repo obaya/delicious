@@ -51,7 +51,7 @@
                   <div class="p_c_content2" >
                     <img v-bind:src="goodsitem.imgUrl[0]" width="100%" alt="" @click="showgoods" :id="goodsitem.id"/>
                     <p><a class="title" v-text ="goodsitem.title"></a><a class="price" v-text="'￥'+goodsitem.newPrice"></a></p>
-                    <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus" @click="add" :id="goodsitem.type"></i></a></p>
+                    <p><a class=" sale" v-text="'月售'+goodsitem.sales"></a><a class="add "><i class="el-icon-circle-plus" style="color:#FF4E00;" @click="add" :id="goodsitem.type"></i></a></p>
                   </div>
                 </div>
               </el-col>
@@ -67,7 +67,7 @@
                    <div class="p_c_content2" >
                       <img v-bind:src="recommenditem.imgUrl[0]" width="100%" alt="" @click="showgoods" :id="recommenditem.id"/>
                       <p><a class="title" v-text ="recommenditem.title"></a><a class="price" v-text="'￥'+recommenditem.newPrice"></a></p>
-                      <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"  @click="add" :id="recommenditem.type"></i></a></p>
+                      <p><a class=" sale" v-text="'月售'+recommenditem.sales"></a><a class="add "><i class="el-icon-circle-plus"  @click="add" style="color:#FF4E00;" ss:id="recommenditem.type"></i></a></p>
                     </div>
                 </div>
               </el-col>
@@ -75,9 +75,7 @@
        </section>
        
     </main>
-        
-    <footermodel></footermodel>
-
+     <div id="homefoot" style="height:1.333333rem;position:fixed;"><footermodel color="index"></footermodel></div>
   </div>
 
 </template>
@@ -91,7 +89,7 @@
     name: 'app',
     data () {
       return {
-         user_id:0,
+         user_id:'',
          qty:1,
          gid:0,
          input10: '',
@@ -111,16 +109,28 @@
       },
       add(e){
         if(e.target.tagName == 'I'){
+          var type = '';
           var goods_id = e.target.parentNode.parentNode.parentNode.children[0].id;
+          var Take_outcookie = this.Cookie.getCookie('Take_out');
+          if(Take_outcookie==='wai'){
+            type = 1;
+          }else{
+            type = 0;
+          }
 
           baseUrl.get({
             url : "/insertCart" ,
             params : {
+              type : type,
               goods_id:goods_id,
               user_id:this.user_id,
             },
-          }).then(function(res){
-            alert('加入购物车成功')
+          }).then((res)=>{
+              this.$message({
+                  message: '加购成功',
+                  type: 'success'
+              });
+            
           })
         }
       },
@@ -132,10 +142,13 @@
          }
       },
       Take_out:function(){
+        this.$router.push('classify');
         document.cookie = 'Take_out =' + 'wai' ;
+
       },
       Eat:function(){
-          document.cookie = 'Take_out =' + '' ;
+        this.$router.push('classify');
+        document.cookie = 'Take_out =' + '' ;
       }
 
 
@@ -150,49 +163,41 @@
     //     if (document.readyState == "complete") {
     //         var loadingMask = document.getElementById('loading');
     //         loadingMask.parentNode.removeChild(loadingMask);
-
     //     }
-
     //   }
     // },
     mounted(){
       var CrDate = '';
-      var cookie = document.cookie;
-      cookie = cookie.split('; ');
-      cookie.forEach(function(item){
-        var arr = item.split('=');
-        if(arr[0] === 'user_id'){
-            this.user_id = arr[1];
-            console.log(this.Tfood);
-        }else{
-          var Atanisi = Math.floor(Math.random() * 9999);  
-          var myDate = new Date();  
-          var tm = myDate.getMinutes();         //分  
-           if (tm >= 1 && tm <= 9) {  
-             tm = "0" + tm;  
-          }  
-          var tS = myDate.getSeconds();          //秒  
-           if (tS >= 1 && tS <= 9) {  
-              tS = "0" + tS;  
-          }  
-          //时间  
-          CrDate =tm+ tS+Atanisi;
-          // console.log(CrDate)
-          var Num = '';
-          baseUrl.get({
-             url : "/register" ,
-             params : {type:0,cardNum:CrDate}
-          }).then(function(res){
-            console.log(res)
-            Num = res.data.result.insertId;
-            // console.log(Num)
-            this.user_id = Num;
-            // console.log(this.user_id )
-            document.cookie = 'user_id =' + Num ;
-          }.bind(this));
-        }
-      }.bind(this))
-      //生成用户名 
+      var useridcookie = this.Cookie.getCookie('user_id');
+      if(useridcookie ===''){
+        var Atanisi = Math.floor(Math.random() * 9999);  
+        var myDate = new Date();  
+        var tm = myDate.getMinutes();         //分  
+         if (tm >= 1 && tm <= 9) {  
+           tm = "0" + tm;  
+        }  
+        var tS = myDate.getSeconds();          //秒  
+         if (tS >= 1 && tS <= 9) {  
+            tS = "0" + tS;  
+        }  
+        //时间  
+        CrDate =tm+ tS+Atanisi;
+        var Num = '';
+        baseUrl.get({
+           url : "/register" ,
+           params : {type:0,cardNum:CrDate}
+        }).then(function(res){
+          Num = res.data.result.insertId;
+          this.user_id = Num;
+          document.cookie = 'user_id =' + Num ;
+          document.cookie = 'cardNum =' + CrDate ;
+        }.bind(this));
+      }else{
+          this.user_id=this.Cookie.getCookie('user_id');
+      }
+
+
+
       
     
 
@@ -346,11 +351,9 @@
                 if (item.type===0) {
                   characteristic.push(item);
                   this.goods = characteristic.slice(0, 4);
-                  // console.log(characteristic )
                 }else{
                   recommenddata.push(item);
                   this.recommend = recommenddata;
-                   // console.log(this.recommend )
                 }
             }) 
           }.bind(this))

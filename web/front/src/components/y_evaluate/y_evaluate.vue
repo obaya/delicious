@@ -82,7 +82,8 @@
                             comment:this.comment[i]
                         }
                         this.subEva(data)
-                    }
+                        this.open2()
+                    } 
                     
                 }
             },
@@ -93,7 +94,7 @@
                     params:data
                 }).then(function(res){
                     if(res.data.status == 'ok'){
-                        self.open2()
+                       
                         self.tijiao = false;
                         self.fanhui = true;
                     }
@@ -119,12 +120,12 @@
                 url:"/getUserOrderA",
                 params:{phoneNum:this.user_id}
             }).then(function(res){
-                self.orderList=res.data[0].goods_json
+                self.orderList=res.data[res.data.length-1].goods_json
+
                 for(var i=0;i<self.orderList.length;i++){
-                    self.imgurl.push(self.orderList[i].imgUrl.split(';')[0])
+                    self.imgurl.push(self.orderList[i].imgUrl.split(';')[0]);
                     self.goodsId.push(self.orderList[i].goods_id)
-                    self.user_id = res.data[0].user_id
-                    
+                    self.user_id = res.data[res.data.length-1].user_id
                 }
             });
         },

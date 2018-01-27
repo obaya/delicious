@@ -50,7 +50,7 @@
             },
         },
         mounted(){
-            this.user_id=localStorage.getItem('user_id')
+            this.user_id=this.Cookie.getCookie('user_id')
 
             var self = this;
 
@@ -58,10 +58,10 @@
                 url:"/getUserInfoA",
                 params:{phoneNum:this.user_id}
             }).then(function(res){
-                self.name = res.data[0].userName;
-                self.address = res.data[0].side;
-                self.user_id = res.data[0].id;
-                self.phoneNum = res.data[0].phoneNum;
+                self.name = res.data[res.data.length-1].userName;
+                self.address = res.data[res.data.length-1].side;
+                self.user_id = res.data[res.data.length-1].id;
+                self.phoneNum = res.data[res.data.length-1].phoneNum;
             });
         }
     }

@@ -5,9 +5,10 @@
             <span>我的订单</span>
             <i></i>
         </div>
+        <div  v-show="state!=2" style="text-align:center;font-size:0.45rem;margin-top:0.6rem;">您还未下单哦</div>
 
-        <div class="o-state">
-            <div class="jindu">
+        <div class="o-state"  v-show="state==2">
+            <div class="jindu" >
                 <i class="el-icon-success active"></i>
                 <div :class="{active:state>=1}"></div>
                 <i :class="['el-icon-success',{active:state>=1}]"></i>
@@ -21,7 +22,7 @@
             </div>
         </div>
 
-        <div class="o-infor">
+        <div class="o-infor"  v-show="state==2">
             <div class="onumber">
                 <span>订单号：</span>
                 <span v-text="orderNum"></span>
@@ -32,7 +33,7 @@
             </div>
         </div>
 
-        <div class="o-list">
+        <div class="o-list"  v-show="state==2">
 
             <ul class="food-list" >
                 <li class="one-list" v-for="(value,idx) in orderList">
@@ -103,8 +104,8 @@
         },
         mounted(){
             // 拿取存在cookie中的useridb
-            this.user_id=document.cookie.split('=')[1]
-            this.user_id=localStorage.getItem('user_id')
+            this.user_id=this.Cookie.getCookie('user_id');
+            localStorage.setItem('user_id',this.user_id);
 
             var self = this;
             baseUrl.get({
@@ -113,18 +114,17 @@
                 params:{phoneNum:this.user_id}
                 
             }).then(function(res){
-                
-                self.orderList=res.data[0].goods_json
+                self.orderList=res.data[res.data.length-1].goods_json
                
-                self.orderNum = res.data[0].orderNum;
+                self.orderNum = res.data[res.data.length-1].orderNum;
                 // 下单时间
-                self.createTime = self.toMyTime(res.data[0].create_at);
+                self.createTime = self.toMyTime(res.data[res.data.length-1].create_at);
 
 
 
-                self.orderState = res.data[0].state;
-                self.payType = res.data[0].type;
-                self.state = res.data[0].state;
+                self.orderState = res.data[res.data.length-1].state;
+                self.payType = res.data[res.data.length-1].type;
+                self.state = res.data[res.data.length-1].state;
 
                 for(var i=0;i<self.orderList.length;i++){
                     self.totalQty += (self.orderList[i].qty)*1;
@@ -133,7 +133,8 @@
                 if(self.orderState == 2){
                     self.hadPay = "已支付"
                 }
-            });
+                
+            })
         }
     }
 

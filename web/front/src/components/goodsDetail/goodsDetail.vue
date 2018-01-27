@@ -44,12 +44,10 @@
     mounted(){
     
         var id = this.gid;
-        console.log(id)
         baseUrl.get({
           url : "/getGoodsInfo",
           params : {id:id} 
         }).then(function(res){
-          console.log(res.data) ;
           this.g2_detail = res.data; 
         }.bind(this))
       
